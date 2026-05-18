@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CINE-POST | Processing Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #05070A;
+            color: #e2e2e2;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 219, 231, 0.1);
+        }
+        .glass-stroke {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .accent-glow {
+            box-shadow: 0 0 15px rgba(0, 219, 231, 0.15);
+        }
+        .scanline {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00f2ff, transparent);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .pulsing-bar {
+            background: linear-gradient(90deg, #006a71 0%, #00f2ff 50%, #006a71 100%);
+            background-size: 200% 100%;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#333535",
+                      "on-tertiary-fixed-variant": "#44474d",
+                      "outline-variant": "#3a494b",
+                      "on-tertiary": "#2e3036",
+                      "on-secondary-fixed-variant": "#44474b",
+                      "primary-fixed-dim": "#00dbe7",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-fixed": "#002022",
+                      "on-surface-variant": "#b9cacb",
+                      "surface-bright": "#37393a",
+                      "on-secondary-fixed": "#191c1f",
+                      "on-surface": "#e2e2e2",
+                      "primary-container": "#00f2ff",
+                      "on-primary-fixed-variant": "#004f54",
+                      "inverse-on-surface": "#2f3131",
+                      "surface-container": "#1e2020",
+                      "on-tertiary-container": "#5d6066",
+                      "background": "#121414",
+                      "tertiary-fixed-dim": "#c4c6cd",
+                      "on-error": "#690005",
+                      "surface-tint": "#00dbe7",
+                      "on-secondary-container": "#b3b5ba",
+                      "error-container": "#93000a",
+                      "surface": "#121414",
+                      "tertiary": "#f6f7ff",
+                      "on-background": "#e2e2e2",
+                      "tertiary-fixed": "#e1e2e9",
+                      "surface-container-lowest": "#0c0f0f",
+                      "surface-dim": "#121414",
+                      "error": "#ffb4ab",
+                      "primary-fixed": "#74f5ff",
+                      "surface-container-highest": "#333535",
+                      "on-primary-container": "#006a71",
+                      "secondary-fixed": "#e1e2e7",
+                      "inverse-primary": "#00696f",
+                      "surface-container-high": "#282a2b",
+                      "outline": "#849495",
+                      "surface-container-low": "#1a1c1c",
+                      "on-secondary": "#2e3134",
+                      "secondary-fixed-dim": "#c5c6cb",
+                      "on-primary": "#00363a",
+                      "inverse-surface": "#e2e2e2",
+                      "tertiary-container": "#d9dbe2",
+                      "secondary-container": "#44474b",
+                      "primary": "#e1fdff",
+                      "on-tertiary-fixed": "#191c21",
+                      "secondary": "#c5c6cb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xl": "40px",
+                      "md": "16px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "sm": "8px",
+                      "gutter": "12px",
+                      "margin": "16px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "h1": ["Space Grotesk"],
+                      "h2": ["Space Grotesk"],
+                      "data-point": ["Inter"],
+                      "mono-label": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "data-point": ["13px", {"lineHeight": "1", "letterSpacing": "0", "fontWeight": "700"}],
+                      "mono-label": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-sm": ["12px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                      "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md bg-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation -->
+<header class="flex justify-between items-center w-full px-gutter h-16 fixed top-0 z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/50">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary-container cursor-pointer">menu</span>
+<span class="font-h1 text-h1 font-bold tracking-widest text-primary-container uppercase">CINE-POST</span>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex gap-lg mr-lg">
+<span class="font-mono-label text-mono-label uppercase tracking-widest text-on-surface-variant hover:text-primary-container transition-colors cursor-pointer">Project_Alpha</span>
+<span class="font-mono-label text-mono-label uppercase tracking-widest text-on-surface-variant hover:text-primary-container transition-colors cursor-pointer">Network_Live</span>
+</div>
+<span class="material-symbols-outlined text-primary-container cursor-pointer hover:bg-primary-container/10 p-2 transition-all rounded-lg">notifications</span>
+</div>
+</header>
+<main class="pt-24 pb-24 px-gutter max-w-7xl mx-auto space-y-md">
+<!-- Render Completion Alerts -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="glass-panel glass-stroke p-md relative overflow-hidden accent-glow">
+<div class="scanline"></div>
+<div class="flex justify-between items-start">
+<div class="space-y-xs">
+<span class="font-mono-label text-mono-label text-primary-container px-sm py-1 border border-primary-container/30 bg-primary-container/5">RENDER COMPLETE</span>
+<h3 class="font-h2 text-h2 text-on-surface mt-sm">Master_v04_Final_Cut.mp4</h3>
+<p class="font-body-sm text-on-surface-variant">Export duration: 12m 43s • 4K ProRes 4444</p>
+</div>
+<span class="material-symbols-outlined text-primary-container text-3xl" data-weight="fill">check_circle</span>
+</div>
+<div class="mt-md flex gap-sm">
+<button class="bg-primary-container text-on-primary-container px-md py-sm font-mono-label uppercase tracking-widest active:scale-95 transition-transform">Preview File</button>
+<button class="border border-primary-container text-primary-container px-md py-sm font-mono-label uppercase tracking-widest hover:bg-primary-container/10 transition-all">Upload to Cloud</button>
+</div>
+</div>
+<div class="glass-panel glass-stroke p-md relative overflow-hidden">
+<div class="flex justify-between items-start">
+<div class="space-y-xs">
+<span class="font-mono-label text-mono-label text-on-surface-variant px-sm py-1 border border-outline-variant bg-surface-variant/20">PREVIOUS SESSION</span>
+<h3 class="font-h2 text-h2 text-on-surface mt-sm">Scene_09_Audio_Denoise</h3>
+<p class="font-body-sm text-on-surface-variant">Processed 1,420 frames • AI Confidence 98.2%</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">history</span>
+</div>
+<div class="mt-md flex gap-sm">
+<button class="border border-outline-variant text-on-surface-variant px-md py-sm font-mono-label uppercase tracking-widest hover:bg-surface-variant transition-all">Review Log</button>
+</div>
+</div>
+</section>
+<!-- Bento Layout for Stats and Jobs -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Project Status List -->
+<section class="lg:col-span-2 glass-panel glass-stroke p-md space-y-md">
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-sm">
+<h2 class="font-h2 text-h2 text-on-surface">PROJECT STATUS</h2>
+<span class="font-mono-label text-mono-label text-primary-container">3 ACTIVE JOBS</span>
+</div>
+<div class="space-y-md">
+<!-- Job 1 -->
+<div class="p-sm bg-surface-container-low/50 glass-stroke">
+<div class="flex justify-between mb-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container">auto_fix_high</span>
+<span class="font-mono-label text-mono-label text-on-surface uppercase">AI ROTOSCOPING</span>
+</div>
+<span class="font-data-point text-data-point text-primary-container">64%</span>
+</div>
+<div class="h-1 bg-surface-container-highest w-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[64%] pulsing-bar"></div>
+</div>
+<div class="flex justify-between mt-sm">
+<span class="font-body-sm text-on-surface-variant">Shot_A102_Exterior.mov</span>
+<span class="font-body-sm text-on-surface-variant">Est: 4m 20s remaining</span>
+</div>
+</div>
+<!-- Job 2 -->
+<div class="p-sm bg-surface-container-low/50 glass-stroke">
+<div class="flex justify-between mb-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container">shutter_speed</span>
+<span class="font-mono-label text-mono-label text-on-surface uppercase">4K UPSCALING</span>
+</div>
+<span class="font-data-point text-data-point text-primary-container">22%</span>
+</div>
+<div class="h-1 bg-surface-container-highest w-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-[22%] pulsing-bar"></div>
+</div>
+<div class="flex justify-between mt-sm">
+<span class="font-body-sm text-on-surface-variant">Vintage_Archive_Clip_01.r3d</span>
+<span class="font-body-sm text-on-surface-variant">Est: 1h 12m remaining</span>
+</div>
+</div>
+<!-- Job 3 -->
+<div class="p-sm bg-surface-container-low/50 glass-stroke opacity-60">
+<div class="flex justify-between mb-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant">palette</span>
+<span class="font-mono-label text-mono-label text-on-surface uppercase">COLOR MATCHING</span>
+</div>
+<span class="font-data-point text-data-point text-on-surface-variant">QUEUED</span>
+</div>
+<div class="h-1 bg-surface-container-highest w-full"></div>
+<div class="flex justify-between mt-sm">
+<span class="font-body-sm text-on-surface-variant">Full_Sequence_B_Roll</span>
+<span class="font-body-sm text-on-surface-variant">Waiting for resources...</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Stats -->
+<section class="space-y-md">
+<!-- GPU Usage -->
+<div class="glass-panel glass-stroke p-md relative overflow-hidden accent-glow">
+<div class="flex justify-between items-center mb-md">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest">GPU_USAGE_PRIMARY</span>
+<span class="material-symbols-outlined text-primary-container">memory</span>
+</div>
+<div class="text-4xl font-h1 text-primary-container">92<span class="text-lg">%</span></div>
+<div class="mt-md space-y-xs">
+<div class="flex justify-between font-mono-label text-mono-label text-on-surface-variant">
+<span>TEMP</span>
+<span>74°C</span>
+</div>
+<div class="h-1 bg-surface-container-highest w-full">
+<div class="h-full bg-primary-container w-[74%]"></div>
+</div>
+</div>
+</div>
+<!-- Cloud Storage -->
+<div class="glass-panel glass-stroke p-md relative overflow-hidden">
+<div class="flex justify-between items-center mb-md">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest">CLOUD_STORAGE</span>
+<span class="material-symbols-outlined text-on-surface-variant">cloud_queue</span>
+</div>
+<div class="text-4xl font-h1 text-on-surface">14.2<span class="text-lg">TB</span></div>
+<p class="font-body-sm text-on-surface-variant mt-xs">Used of 20TB Allocation</p>
+<div class="mt-md space-y-xs">
+<div class="h-1 bg-surface-container-highest w-full">
+<div class="h-full bg-on-surface-variant w-[71%]"></div>
+</div>
+</div>
+</div>
+<!-- Active AI Node -->
+<div class="glass-panel glass-stroke p-md relative overflow-hidden bg-primary-container/5 border-primary-container/20">
+<div class="scanline animate-pulse"></div>
+<div class="flex items-center gap-sm mb-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-mono-label text-mono-label text-primary-container uppercase">NEURAL_ENGINE_ACTIVE</span>
+</div>
+<p class="font-body-sm text-on-surface">Processing complex temporal coherence for frame interpolation on Node 04-Beta.</p>
+</div>
+</section>
+</div>
+<!-- Featured Media / Filmstrip -->
+<section class="glass-panel glass-stroke p-md">
+<h2 class="font-h2 text-h2 text-on-surface mb-md">LATEST RENDER OUTPUTS</h2>
+<div class="flex gap-md overflow-x-auto pb-md no-scrollbar">
+<div class="flex-none w-64 space-y-sm">
+<div class="aspect-video bg-surface-container relative group overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" data-alt="A cinematic low-angle shot of a film production set featuring high-end camera equipment and a glowing monitor screen displaying color-graded footage. The lighting is moody and cool-toned with sharp cyan highlights reflecting off the metallic surfaces of the cinema camera rig. The environment is a dark professional editing suite with a focused, high-tech atmosphere and subtle lens flare effects." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhOjqinmyFlgef8RcC8UB5PorMaBtQNBJVusjQp5PEbcMYD6r9vsE0CJE3LwQyNANWu9bAWxhZ-p0aHshwbzNhSViKzuBXgHKHG8odFoTn0jU99DJNuUb6UzUewdx9trRc9jIScNjSO718ecRsc7oKrc-uHX6q3hX7mZDEYi-IeefB14bbb1tFxKpc2cPb2jhQQ-jO1ry7sB87Zn4MhoEF1Pi9JXk7rH_zcV7HennSbOdOrDyXPC1UzvIOKKdPfCbZNTywKbHovxu8"/>
+<div class="absolute inset-0 bg-primary-container/10 group-hover:bg-transparent transition-colors"></div>
+<div class="absolute bottom-2 right-2 font-mono-label text-mono-label bg-background/80 px-1">00:14:22</div>
+</div>
+<div class="font-mono-label text-mono-label uppercase text-on-surface">Scene_04_VFX_Comp</div>
+</div>
+<div class="flex-none w-64 space-y-sm">
+<div class="aspect-video bg-surface-container relative group overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" data-alt="A macro close-up of a digital motherboard with glowing neon circuits and flowing light data patterns in a deep electric cyan. The image captures the high-performance technical nature of AI hardware with sharp focus on shimmering microchips and futuristic computational architecture. The mood is dark and sophisticated, reflecting the power of high-end post-production servers and data processing units." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO02rCkZ-PdoFD3cGF6DxPQcY2-tqLoQDz7LzrKM3AEbudQmfNy7FmXE7SFbxpAQQ4U5jw5Bc5Nx585fT5YAgaJrHqjg6sdQlee9eOj_a9fXkZZlusmoY2vDwQj_PQCkSGjKjbGQlsbmqb1S4gzH460Sy7st74Yn0FTzyoTaWkKKBvhtEGkAPM6oN-_qoouifoVNqpExUtF8CIQTFGWI8BgE0vhZ4GeJHVQESYYl1zoajwg6Ohw1_il3q88rB3PGFjxE9x7z4aBvw5"/>
+<div class="absolute inset-0 bg-primary-container/10 group-hover:bg-transparent transition-colors"></div>
+<div class="absolute bottom-2 right-2 font-mono-label text-mono-label bg-background/80 px-1">00:08:15</div>
+</div>
+<div class="font-mono-label text-mono-label uppercase text-on-surface">Teaser_Trailer_A</div>
+</div>
+<div class="flex-none w-64 space-y-sm">
+<div class="aspect-video bg-surface-container relative group overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" data-alt="A wide cinematic landscape of a futuristic cityscape at night, heavily color-graded with deep teals and vibrant cyan light trails. The shot mimics high-end film production quality with anamorphic lens flares and a fine digital grain. The urban setting is dense with skyscrapers and glowing holographic advertisements, emphasizing a sleek and cutting-edge post-production aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2VyINPEQPqz07oaJBSzHDd0X3h8hQcVqPbp4SXbIvjIlGSkpNZob3_LDooiL6nJp24_wZnp5uh2KeJQoi-v5AzfcBinSrr2xYUevZGosZdE2ErBYvnJJapMvrgchDwpYJuv4d27umI0X2xWWVCZt8470wZMY9fqjqkYKjpLIo2vHlFwTa8jQQO14ukq4uj93KXqig1TrRL0aLS5L0gV8Sc6Qejwz22YhxkQsv0sOpMsfL1Z4d3IV89XxRyXYLixf3s7bO8iPe-ePB"/>
+<div class="absolute inset-0 bg-primary-container/10 group-hover:bg-transparent transition-colors"></div>
+<div class="absolute bottom-2 right-2 font-mono-label text-mono-label bg-background/80 px-1">00:42:01</div>
+</div>
+<div class="font-mono-label text-mono-label uppercase text-on-surface">B_Roll_Sequence_01</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 px-gutter pb-safe bg-surface-container-lowest/90 dark:bg-surface-container-lowest/90 backdrop-blur-xl border-t border-outline-variant/30">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 pt-2 pb-1 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="auto_fix_high">auto_fix_high</span>
+<span class="font-mono-label text-mono-label uppercase tracking-widest mt-1">GALLERY</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary-container border-t-2 border-primary-container pt-2 pb-1 bg-primary-container/5 active:opacity-80 scale-95 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard_customize">dashboard_customize</span>
+<span class="font-mono-label text-mono-label uppercase tracking-widest mt-1">DASHBOARD</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 pt-2 pb-1 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="font-mono-label text-mono-label uppercase tracking-widest mt-1">WORKFLOW</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 pt-2 pb-1 hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-mono-label text-mono-label uppercase tracking-widest mt-1">TEAM</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CINE-POST | Workflow Integration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #05070A;
+            color: #e2e2e2;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(58, 73, 75, 0.5);
+        }
+        .glass-stroke {
+            border: 1px solid rgba(225, 253, 255, 0.1);
+        }
+        .scanline {
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 219, 231, 0.2) 50%, transparent 100%);
+            height: 2px;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            animation: scan 3s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: -5%; }
+            100% { top: 105%; }
+        }
+        .accent-glow {
+            box-shadow: 0 0 15px rgba(0, 219, 231, 0.15);
+        }
+        .node-connector {
+            background: repeating-linear-gradient(90deg, #3a494b 0, #3a494b 4px, transparent 4px, transparent 8px);
+            height: 1px;
+            flex-grow: 1;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#333535",
+                      "on-tertiary-fixed-variant": "#44474d",
+                      "outline-variant": "#3a494b",
+                      "on-tertiary": "#2e3036",
+                      "on-secondary-fixed-variant": "#44474b",
+                      "primary-fixed-dim": "#00dbe7",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-fixed": "#002022",
+                      "on-surface-variant": "#b9cacb",
+                      "surface-bright": "#37393a",
+                      "on-secondary-fixed": "#191c1f",
+                      "on-surface": "#e2e2e2",
+                      "primary-container": "#00f2ff",
+                      "on-primary-fixed-variant": "#004f54",
+                      "inverse-on-surface": "#2f3131",
+                      "surface-container": "#1e2020",
+                      "on-tertiary-container": "#5d6066",
+                      "background": "#121414",
+                      "tertiary-fixed-dim": "#c4c6cd",
+                      "on-error": "#690005",
+                      "surface-tint": "#00dbe7",
+                      "on-secondary-container": "#b3b5ba",
+                      "error-container": "#93000a",
+                      "surface": "#121414",
+                      "tertiary": "#f6f7ff",
+                      "on-background": "#e2e2e2",
+                      "tertiary-fixed": "#e1e2e9",
+                      "surface-container-lowest": "#0c0f0f",
+                      "surface-dim": "#121414",
+                      "error": "#ffb4ab",
+                      "primary-fixed": "#74f5ff",
+                      "surface-container-highest": "#333535",
+                      "on-primary-container": "#006a71",
+                      "secondary-fixed": "#e1e2e7",
+                      "inverse-primary": "#00696f",
+                      "surface-container-high": "#282a2b",
+                      "outline": "#849495",
+                      "surface-container-low": "#1a1c1c",
+                      "on-secondary": "#2e3134",
+                      "secondary-fixed-dim": "#c5c6cb",
+                      "on-primary": "#00363a",
+                      "inverse-surface": "#e2e2e2",
+                      "tertiary-container": "#d9dbe2",
+                      "secondary-container": "#44474b",
+                      "primary": "#e1fdff",
+                      "on-tertiary-fixed": "#191c21",
+                      "secondary": "#c5c6cb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xl": "40px",
+                      "md": "16px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "sm": "8px",
+                      "gutter": "12px",
+                      "margin": "16px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "h1": ["Space Grotesk"],
+                      "h2": ["Space Grotesk"],
+                      "data-point": ["Inter"],
+                      "mono-label": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "data-point": ["13px", {"lineHeight": "1", "letterSpacing": "0", "fontWeight": "700"}],
+                      "mono-label": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-sm": ["12px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                      "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface">
+<header class="flex justify-between items-center w-full px-gutter h-16 fixed top-0 z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/50">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">menu</span>
+<h1 class="font-h1 text-h1 font-bold tracking-widest text-primary-container uppercase">CINE-POST</h1>
+</div>
+<div class="flex items-center gap-lg">
+<div class="hidden md:flex gap-md">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest">STATION_ID: ALPHA_01</span>
+<span class="font-mono-label text-mono-label text-primary-container uppercase tracking-widest">STATUS: CONNECTED</span>
+</div>
+<span class="material-symbols-outlined text-primary-container">notifications</span>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin max-w-7xl mx-auto min-h-screen">
+<div class="flex flex-col gap-lg mb-xl">
+<div class="flex justify-between items-end border-b border-outline-variant/30 pb-sm">
+<div>
+<span class="font-mono-label text-mono-label text-primary-container uppercase tracking-widest">PIPELINE_VIEW</span>
+<h2 class="font-h2 text-h2 mt-xs">WORKFLOW INTEGRATION</h2>
+</div>
+<div class="flex gap-sm">
+<button class="bg-primary-container text-on-primary-container px-md py-xs font-mono-label text-mono-label uppercase tracking-widest flex items-center gap-xs active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[14px]">add</span>
+                        NEW_NODE
+                    </button>
+</div>
+</div>
+<section class="relative py-xl overflow-x-auto">
+<div class="flex items-center min-w-[800px] justify-between px-md">
+<!-- INPUT NODE -->
+<div class="glass-panel w-48 p-md relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-primary-container/30"></div>
+<div class="flex justify-between items-start mb-md">
+<span class="material-symbols-outlined text-primary-container">cloud_download</span>
+<span class="font-mono-label text-mono-label text-on-surface-variant">NODE_01</span>
+</div>
+<div class="space-y-sm">
+<p class="font-mono-label text-mono-label text-primary-container">INPUT_SOURCE</p>
+<h3 class="font-h2 text-[16px] leading-tight">AWS_S3_BUCKET</h3>
+<div class="flex gap-xs mt-sm">
+<span class="px-xs py-[2px] border border-outline-variant text-[9px] font-mono-label">RAW_8K</span>
+<span class="px-xs py-[2px] border border-outline-variant text-[9px] font-mono-label">PRORES</span>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant/30">
+<div class="flex justify-between text-[10px] font-mono-label text-on-surface-variant">
+<span>THROUGHPUT</span>
+<span class="text-primary-container">1.2 GB/S</span>
+</div>
+</div>
+</div>
+<div class="node-connector"></div>
+<!-- AI PROCESSING NODE -->
+<div class="glass-panel w-64 p-md relative overflow-hidden accent-glow border-primary-container/40">
+<div class="scanline"></div>
+<div class="flex justify-between items-start mb-md">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">auto_fix_high</span>
+<span class="font-mono-label text-mono-label text-primary-container animate-pulse">PROCESSING...</span>
+</div>
+<div class="space-y-sm">
+<p class="font-mono-label text-mono-label text-primary-container">AI_ENGINE</p>
+<h3 class="font-h2 text-[18px] leading-tight">CHROMA_AUTO_SYNC</h3>
+<div class="w-full bg-surface-variant h-[2px] mt-md">
+<div class="bg-primary-container h-full w-3/4 shadow-[0_0_8px_rgba(0,242,255,0.6)]"></div>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-mono-label text-[10px] text-on-surface-variant">LATENCY: 42MS</span>
+<span class="material-symbols-outlined text-[16px] text-primary-container">settings</span>
+</div>
+</div>
+<div class="node-connector"></div>
+<!-- OUTPUT NODE -->
+<div class="glass-panel w-48 p-md relative overflow-hidden group">
+<div class="flex justify-between items-start mb-md">
+<span class="material-symbols-outlined text-on-surface-variant">output</span>
+<span class="font-mono-label text-mono-label text-on-surface-variant">NODE_03</span>
+</div>
+<div class="space-y-sm">
+<p class="font-mono-label text-mono-label text-on-surface-variant">OUTPUT_TARGET</p>
+<h3 class="font-h2 text-[16px] leading-tight">PREMIERE_PRO_EXT</h3>
+<div class="flex gap-xs mt-sm">
+<span class="px-xs py-[2px] border border-outline-variant text-[9px] font-mono-label">XML_SYNC</span>
+<span class="px-xs py-[2px] border border-outline-variant text-[9px] font-mono-label">PROXY_H264</span>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-outline-variant/30">
+<div class="flex justify-between text-[10px] font-mono-label text-on-surface-variant">
+<span>DESTINATION</span>
+<span class="text-on-surface">DROPBOX_V3</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<!-- CLOUD CONNECTORS -->
+<div class="md:col-span-1 flex flex-col gap-md">
+<div class="flex items-center gap-sm mb-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]">cloud</span>
+<h3 class="font-mono-label text-mono-label uppercase tracking-widest">CLOUD_STORAGE</h3>
+</div>
+<div class="glass-panel p-md flex items-center justify-between glass-stroke">
+<div class="flex items-center gap-md">
+<img alt="AWS" class="w-8 h-8 opacity-60 grayscale brightness-150" data-alt="A macro photograph of professional server hardware, with intricate circuitry and glowing cyan LED status indicators reflecting off dark metallic surfaces. The atmosphere is clinical, high-tech, and futuristic, following a deep space black and neon cyan color palette. The shallow depth of field emphasizes the precision of the hardware components." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGZR9gRsHLDfrXJFIcVIY6LlzTakg_CFWdv1N0sinH5CRP29tXuMwMjtGMnPR0wtPy725tGTE5SMxPawSU1RzkGkgFE2iEU2fqSjmOM0v_crbbcgoopaB3XUxilRRGQVbAv-RF9NJc_DoAZvTEGfRIyIgvuSIiPl89NAFhBs-UBTve_7rX9NmQGXo4xCLKSwboU8Z6iUpMcfBauDBSCVw8cOeX5FF9QufLsZqGgqBrzp9h2jQH4kelx5kpXhvPgB6XKVxzrrIgryJW"/>
+<div>
+<p class="font-h2 text-[14px]">AWS S3 STORAGE</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Connected: Region US-East-1</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+</div>
+<div class="glass-panel p-md flex items-center justify-between glass-stroke opacity-50">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 flex items-center justify-center bg-surface-variant">
+<span class="material-symbols-outlined text-[20px]">folder</span>
+</div>
+<div>
+<p class="font-h2 text-[14px]">DROPBOX BUSINESS</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Disconnected</p>
+</div>
+</div>
+<button class="font-mono-label text-[10px] border border-primary-container/40 text-primary-container px-sm py-xs hover:bg-primary-container/10 transition-all">CONNECT</button>
+</div>
+</div>
+<!-- PLUGIN INTEGRATION -->
+<div class="md:col-span-2 flex flex-col gap-md">
+<div class="flex items-center gap-sm mb-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]">extension</span>
+<h3 class="font-mono-label text-mono-label uppercase tracking-widest">NLE_PLUGINS</h3>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<div class="glass-panel p-lg glass-stroke relative group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-primary-container/5 border border-primary-container/20">
+<span class="material-symbols-outlined text-primary-container">movie_filter</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+<span class="font-mono-label text-[10px] text-primary-container">ACTIVE</span>
+</div>
+</div>
+<h4 class="font-h2 text-[16px] mb-xs">ADOBE PREMIERE PRO</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg">Version 24.1.2 build 62. Dedicated Cine-Post Panel integration for direct timeline syncing.</p>
+<div class="flex justify-between items-center">
+<span class="font-mono-label text-[10px] text-on-surface-variant">SYNC_MODE: AUTO</span>
+<button class="text-primary-container font-mono-label text-[11px] underline">SETTINGS</button>
+</div>
+</div>
+<div class="glass-panel p-lg glass-stroke relative group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-variant">
+<span class="material-symbols-outlined text-on-surface-variant">colors</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-surface-variant"></div>
+<span class="font-mono-label text-[10px] text-on-surface-variant">STANDBY</span>
+</div>
+</div>
+<h4 class="font-h2 text-[16px] mb-xs">DAVINCI RESOLVE</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg">Integration for high-fidelity color metadata round-tripping and proxy delivery.</p>
+<div class="flex justify-between items-center">
+<span class="font-mono-label text-[10px] text-on-surface-variant">SYNC_MODE: MANUAL</span>
+<button class="text-on-surface-variant font-mono-label text-[11px] hover:text-primary-container">ENABLE</button>
+</div>
+</div>
+</div>
+</div>
+<!-- AUTOMATION SETTINGS -->
+<div class="md:col-span-3 flex flex-col gap-md">
+<div class="flex items-center gap-sm mb-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]">precision_manufacturing</span>
+<h3 class="font-mono-label text-mono-label uppercase tracking-widest">AUTOMATION_CONTROL</h3>
+</div>
+<div class="glass-panel p-lg glass-stroke grid grid-cols-1 md:grid-cols-3 gap-xl">
+<div class="flex flex-col gap-md">
+<div class="flex justify-between items-center">
+<span class="font-h2 text-[14px]">AUTOMATED EXPORT</span>
+<div class="w-10 h-5 bg-primary-container rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-3 h-3 bg-on-primary-container rounded-full"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Trigger export to cloud destination immediately upon AI process completion.</p>
+</div>
+<div class="flex flex-col gap-md">
+<div class="flex justify-between items-center">
+<span class="font-h2 text-[14px]">PROXY GENERATION</span>
+<div class="w-10 h-5 bg-primary-container rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-3 h-3 bg-on-primary-container rounded-full"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Create 1080p H.264 proxies for all ingested high-resolution footage.</p>
+</div>
+<div class="flex flex-col gap-md">
+<div class="flex justify-between items-center">
+<span class="font-h2 text-[14px]">TEAM NOTIFICATIONS</span>
+<div class="w-10 h-5 bg-surface-variant rounded-full relative cursor-pointer">
+<div class="absolute left-1 top-1 w-3 h-3 bg-on-surface-variant rounded-full"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Send Slack/Discord alerts when final renders are delivered to cloud storage.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 px-gutter pb-safe bg-surface-container-lowest/90 dark:bg-surface-container-lowest/90 backdrop-blur-xl border-t border-outline-variant/30">
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 pt-2 pb-1 hover:text-primary dark:hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80 scale-95 transition-all">
+<span class="material-symbols-outlined">auto_fix_high</span>
+<span class="font-mono-label text-mono-label uppercase tracking-widest mt-1">GALLERY</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 pt-2 pb-1 hover:text-primary dark:hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80 scale-95 transition-all">
+<span class="material-symbols-outlined">dashboard_customize</span>
+<span class="font-mono-label text-mono-label uppercase tracking-widest mt-1">DASHBOARD</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary-container border-t-2 border-primary-container pt-2 pb-1 bg-primary-container/5 cursor-pointer active:opacity-80 scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+<span class="font-mono-label text-mono-label uppercase tracking-widest mt-1">WORKFLOW</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant/60 pt-2 pb-1 hover:text-primary dark:hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80 scale-95 transition-all">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-mono-label text-mono-label uppercase tracking-widest mt-1">TEAM</span>
+</div>
+</nav>
+<!-- FAB for Critical Workflow Action -->
+<div class="fixed bottom-20 right-6 z-40">
+<button class="bg-primary-container text-on-primary-container w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.4)] active:scale-90 transition-all">
+<span class="material-symbols-outlined text-[30px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</body></html>

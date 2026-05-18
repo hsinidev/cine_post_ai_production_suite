@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NEON_CORE | ADMIN_PANEL</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .scanning-line {
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 242, 255, 0.05) 50%, transparent 100%);
+            background-size: 100% 400%;
+            pointer-events: none;
+        }
+        .grid-bg {
+            background-image: linear-gradient(#2A2D2D 1px, transparent 1px), linear-gradient(90deg, #2A2D2D 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#5d6060",
+                        "tertiary-fixed-dim": "#c5c7c6",
+                        "background": "#121414",
+                        "inverse-on-surface": "#2f3131",
+                        "surface-container": "#1e2020",
+                        "on-background": "#e2e2e2",
+                        "tertiary-fixed": "#e1e3e2",
+                        "on-secondary-container": "#b6b5b4",
+                        "surface-tint": "#00dbe7",
+                        "on-error": "#690005",
+                        "tertiary": "#f6f8f7",
+                        "error-container": "#93000a",
+                        "surface": "#121414",
+                        "on-primary-fixed": "#002022",
+                        "on-secondary-fixed-variant": "#464747",
+                        "primary-fixed-dim": "#00dbe7",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface-bright": "#383939",
+                        "on-surface-variant": "#b9cacb",
+                        "surface-variant": "#333535",
+                        "on-tertiary-fixed-variant": "#444747",
+                        "on-tertiary": "#2e3131",
+                        "outline-variant": "#3a494b",
+                        "on-primary-fixed-variant": "#004f54",
+                        "on-surface": "#e2e2e2",
+                        "primary-container": "#00f2ff",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "on-secondary": "#303030",
+                        "surface-container-low": "#1a1c1c",
+                        "outline": "#849495",
+                        "primary": "#e1fdff",
+                        "on-tertiary-fixed": "#191c1c",
+                        "secondary-container": "#464747",
+                        "secondary": "#c7c6c6",
+                        "on-primary": "#00363a",
+                        "tertiary-container": "#d9dbdb",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-dim": "#121414",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#74f5ff",
+                        "surface-container-highest": "#333535",
+                        "surface-container-lowest": "#0d0f0f",
+                        "surface-container-high": "#282a2a",
+                        "inverse-primary": "#00696f",
+                        "on-primary-container": "#006a71",
+                        "secondary-fixed": "#e3e2e2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "1px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "panel-margin": "12px",
+                        "lg": "24px",
+                        "xl": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Space Grotesk"],
+                        "data-num": ["Space Grotesk"],
+                        "label-mono": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-base": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "data-num": ["13px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-mono": ["11px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-base": ["15px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-base overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface flex flex-col py-md border-r border-outline-variant z-50">
+<div class="px-md mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary-container tracking-tighter">NEON_CORE</h1>
+<p class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant">V0.4.2_STABLE</p>
+</div>
+<nav class="flex-grow space-y-gutter px-xs">
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                AI Gallery
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+                Workflow
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">group</span>
+                Team
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-primary-container border-l-2 border-primary-container bg-primary-container/10 transition-all duration-75" href="#">
+<span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+                Admin Panel
+            </a>
+</nav>
+<div class="mt-auto px-xs space-y-gutter">
+<button class="w-full text-left flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                Settings
+            </button>
+<button class="w-full text-left flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                Support
+            </button>
+<div class="p-md mt-md">
+<button class="w-full py-sm bg-primary-container text-on-primary-container font-label-mono text-label-mono uppercase tracking-widest font-bold">New Project</button>
+</div>
+</div>
+</aside>
+<!-- Header -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface-dim border-b border-outline-variant flex items-center justify-between px-lg z-40">
+<div class="flex items-center gap-md w-1/3">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[16px]">search</span>
+<input class="w-full bg-surface-container-low border-none border-b border-outline-variant focus:border-primary-container focus:ring-0 font-label-mono text-label-mono py-xs pl-xl" placeholder="QUERY_SYSTEM_ROOT..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></div>
+<span class="font-label-mono text-label-mono text-primary-container uppercase">Processing</span>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant">
+<span class="material-symbols-outlined hover:text-primary-container cursor-pointer transition-opacity">notifications</span>
+<span class="material-symbols-outlined hover:text-primary-container cursor-pointer transition-opacity">settings</span>
+<div class="h-8 w-8 bg-surface-variant border border-outline-variant flex items-center justify-center">
+<img alt="Editor Profile" class="w-full h-full object-cover" data-alt="A professional close-up digital avatar portrait of a technical systems administrator for a film studio. The character wears a sleek black tactical turtleneck, has short styled dark hair, and subtle holographic data displays reflecting in their glasses. The background is a dim, high-tech server room with soft cyan and deep gray lighting, maintaining a cold and disciplined cinematic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCouMmF2uYEvQMQrMDTNHNk5DdkiaU9zA1OyoAyrk1rIt-vi6_o9SyGpUiiOgJ7JT3GaBqVilf-bCEoNv81xABOAQyYAhmEfKXq4ghZBfyyFAuLIISpEwyM22kXNeraKkFhr96Qoa8ONLONSHEsHihAZZ_fMzxn7y3HvinbF4RMGK6My4dtSkS9ZE67zDdWNCZfaMmgMzR9_4wq7r6JfgIrU4wn1LscNo521ir7guxZ_axWezaP6Y2qExzwQQD_PVwVM4h9jbd3x7fS"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 mt-16 p-panel-margin h-[calc(100vh-4rem)] overflow-y-auto grid-bg">
+<div class="max-w-[1600px] mx-auto space-y-panel-margin">
+<!-- System Health Dashboard -->
+<section class="grid grid-cols-12 gap-panel-margin">
+<!-- CPU Monitor -->
+<div class="col-span-12 md:col-span-4 bg-surface border border-outline-variant p-md relative overflow-hidden">
+<div class="scanning-line absolute inset-0 opacity-10"></div>
+<div class="flex justify-between items-start mb-md">
+<div>
+<p class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest">Core_Processing_Unit</p>
+<h2 class="font-data-num text-headline-md text-primary-container">64.2<span class="text-xs ml-xs">%</span></h2>
+</div>
+<span class="material-symbols-outlined text-primary-container">memory</span>
+</div>
+<div class="h-24 flex items-end gap-gutter">
+<div class="flex-1 bg-primary-container/20 h-[40%] hover:bg-primary-container transition-all"></div>
+<div class="flex-1 bg-primary-container/20 h-[55%] hover:bg-primary-container transition-all"></div>
+<div class="flex-1 bg-primary-container/20 h-[45%] hover:bg-primary-container transition-all"></div>
+<div class="flex-1 bg-primary-container/20 h-[70%] hover:bg-primary-container transition-all"></div>
+<div class="flex-1 bg-primary-container/20 h-[64%] hover:bg-primary-container transition-all"></div>
+<div class="flex-1 bg-primary-container/20 h-[80%] hover:bg-primary-container transition-all"></div>
+<div class="flex-1 bg-primary-container/20 h-[50%] hover:bg-primary-container transition-all"></div>
+<div class="flex-1 bg-primary-container/20 h-[42%] hover:bg-primary-container transition-all"></div>
+<div class="flex-1 bg-primary-container/10 h-[30%] hover:bg-primary-container transition-all"></div>
+<div class="flex-1 bg-primary-container/40 h-[64%] border-t-2 border-primary-container"></div>
+</div>
+<div class="mt-sm flex justify-between font-label-mono text-[9px] text-on-surface-variant uppercase">
+<span>Thread_01-128</span>
+<span>Load_Balanced</span>
+</div>
+</div>
+<!-- GPU Monitor -->
+<div class="col-span-12 md:col-span-4 bg-surface border border-outline-variant p-md relative overflow-hidden">
+<div class="flex justify-between items-start mb-md">
+<div>
+<p class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest">Neural_Engine_GPU</p>
+<h2 class="font-data-num text-headline-md text-primary-container">88.9<span class="text-xs ml-xs">%</span></h2>
+</div>
+<span class="material-symbols-outlined text-primary-container">developer_board</span>
+</div>
+<div class="h-24 flex items-center justify-center">
+<div class="relative w-20 h-20">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-primary-container" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-dasharray="226" stroke-dashoffset="25" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center font-label-mono text-label-mono text-on-surface">4K_LOG</div>
+</div>
+</div>
+<div class="mt-sm flex justify-between font-label-mono text-[9px] text-on-surface-variant uppercase">
+<span>VRAM_Used: 22.4GB</span>
+<span>Temp: 68°C</span>
+</div>
+</div>
+<!-- Storage Monitor -->
+<div class="col-span-12 md:col-span-4 bg-surface border border-outline-variant p-md relative overflow-hidden">
+<div class="flex justify-between items-start mb-md">
+<div>
+<p class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest">Tier_0_Flash_Array</p>
+<h2 class="font-data-num text-headline-md text-primary-container">1.2<span class="text-xs ml-xs">PB</span></h2>
+</div>
+<span class="material-symbols-outlined text-primary-container">database</span>
+</div>
+<div class="space-y-sm">
+<div class="h-2 bg-surface-variant relative">
+<div class="absolute top-0 left-0 h-full w-[72%] bg-primary-container"></div>
+</div>
+<div class="flex justify-between font-label-mono text-[9px] text-on-surface-variant uppercase">
+<span>Capacity: 72% Full</span>
+<span>Remaining: 340TB</span>
+</div>
+<div class="h-12 border-t border-outline-variant pt-xs overflow-hidden">
+<div class="flex gap-xs">
+<span class="px-xs py-[2px] bg-surface-variant border border-outline text-[8px] font-label-mono text-on-surface-variant">CACHE_HIT</span>
+<span class="px-xs py-[2px] bg-surface-variant border border-outline text-[8px] font-label-mono text-on-surface-variant">NVME_X4</span>
+<span class="px-xs py-[2px] bg-surface-variant border border-outline text-[8px] font-label-mono text-on-surface-variant">RAID_6</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- API Usage & Traffic -->
+<section class="grid grid-cols-12 gap-panel-margin">
+<div class="col-span-12 lg:col-span-8 bg-surface border border-outline-variant">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-label-mono text-label-mono uppercase tracking-widest text-on-surface">API_TRAFFIC_TELEMETRY</h3>
+<div class="flex gap-md">
+<span class="font-label-mono text-[10px] text-primary-container uppercase flex items-center gap-xs"><span class="w-1.5 h-1.5 bg-primary-container"></span> Inference</span>
+<span class="font-label-mono text-[10px] text-on-tertiary-container uppercase flex items-center gap-xs"><span class="w-1.5 h-1.5 bg-on-tertiary-container"></span> Encoding</span>
+</div>
+</div>
+<div class="p-md h-64 relative bg-surface-container-lowest">
+<!-- Simulated Chart -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 800 200">
+<path d="M0,150 L100,140 L200,160 L300,100 L400,120 L500,60 L600,80 L700,40 L800,50" fill="none" stroke="#00f2ff" stroke-width="2"></path>
+<path d="M0,150 L100,140 L200,160 L300,100 L400,120 L500,60 L600,80 L700,40 L800,50 L800,200 L0,200 Z" fill="url(#grad1)" opacity="0.1"></path>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#00f2ff;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#00f2ff;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,180 L100,175 L200,185 L300,160 L400,170 L500,140 L600,150 L700,130 L800,135" fill="none" stroke="#5d6060" stroke-dasharray="4" stroke-width="1.5"></path>
+</svg>
+<div class="absolute inset-0 flex pointer-events-none">
+<div class="flex-1 border-r border-outline-variant/10"></div>
+<div class="flex-1 border-r border-outline-variant/10"></div>
+<div class="flex-1 border-r border-outline-variant/10"></div>
+<div class="flex-1 border-r border-outline-variant/10"></div>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 bg-surface border border-outline-variant flex flex-col">
+<div class="p-md border-b border-outline-variant">
+<h3 class="font-label-mono text-label-mono uppercase tracking-widest text-on-surface">SESSION_ENTROPY</h3>
+</div>
+<div class="p-md flex-grow space-y-md">
+<div class="flex justify-between items-center">
+<span class="font-label-mono text-[10px] text-on-surface-variant uppercase">Uptime_Sequence</span>
+<span class="font-data-num text-on-surface">144:12:08:44</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-mono text-[10px] text-on-surface-variant uppercase">Requests_Per_Sec</span>
+<span class="font-data-num text-on-surface">1.4k</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-mono text-[10px] text-on-surface-variant uppercase">Error_Rate</span>
+<span class="font-data-num text-error">0.004%</span>
+</div>
+<div class="h-gutter bg-outline-variant my-md"></div>
+<div class="bg-surface-container-high p-sm border border-outline-variant">
+<p class="font-label-mono text-[9px] text-primary-container uppercase mb-xs">Live_Logs</p>
+<div class="font-label-mono text-[10px] text-on-tertiary-container space-y-xs overflow-hidden h-24">
+<p>[22:14:01] AUTH_SUCCESS: USER_7782</p>
+<p>[22:14:04] RENDER_START: CLUSTER_B_NODE_12</p>
+<p>[22:14:12] API_CALL: /v1/neural/upscale</p>
+<p>[22:14:15] CACHE_FLUSH: COMPLETED</p>
+<p class="text-primary-container/60">[22:14:18] SYSTEM_PULSE_OK</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- User Management Table -->
+<section class="bg-surface border border-outline-variant">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<div class="flex gap-lg items-center">
+<h3 class="font-label-mono text-label-mono uppercase tracking-widest text-on-surface">SEAT_MANAGEMENT_ROOT</h3>
+<div class="flex gap-xs">
+<span class="px-xs py-[2px] bg-primary-container text-on-primary-container text-[8px] font-label-mono font-bold">128/150 SEATS USED</span>
+</div>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-xs bg-surface-variant border border-outline-variant font-label-mono text-label-mono uppercase text-on-surface hover:text-primary-container transition-colors">Export_CSV</button>
+<button class="px-md py-xs bg-primary-container border border-primary-container font-label-mono text-label-mono font-bold uppercase text-on-primary-container hover:opacity-80 transition-opacity">Provision_Seat</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="p-md text-left font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">User_Identity</th>
+<th class="p-md text-left font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">Access_Level</th>
+<th class="p-md text-left font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">Node_Activity</th>
+<th class="p-md text-left font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">Storage_Quota</th>
+<th class="p-md text-left font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="p-md text-right font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-high group transition-colors">
+<td class="p-md flex items-center gap-md">
+<div class="w-8 h-8 bg-surface-variant border border-outline-variant overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A detailed digital avatar of a female senior film editor. She has glasses, a neutral focused expression, and wears a professional dark gray headset. The background is a soft-focus professional editing suite with multiple glowing monitors showing waveforms and timelines in cyan and orange tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUxgIqcJGFep_IgU0WfJMAu8ht24Z2b3c73HCSCcH7s7UyOApK_2cQkN9e6lCZYeJGQ3qeSSu5rtNAl8P3OJH-kyriHwqYptq0gVGL6NMy_Q3z68f_6cWLUoZT8RuU6AwWgY5FyLwoHK6ZeME6XePGfQzpZIyNMYyvlyyPhzc7nY48GPJi3n8aXyNgI6Fc5F-8sWPbYptrWAu8Bk6X7aS_TbbsBv2XLEcya08XQriinHOW1s8oju70q5dv65seT1o8X_kOz_HaoLQe"/>
+</div>
+<div>
+<p class="font-body-base text-on-surface text-sm">Marcus_V01</p>
+<p class="font-label-mono text-[9px] text-on-tertiary-container uppercase">m.vance@cinepost.io</p>
+</div>
+</td>
+<td class="p-md">
+<span class="px-xs py-[2px] border border-primary-container text-primary-container text-[8px] font-label-mono uppercase">Super_Editor</span>
+</td>
+<td class="p-md font-label-mono text-xs text-on-surface-variant">RENDER_NODE_04</td>
+<td class="p-md">
+<div class="w-24 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 85%"></div>
+</div>
+<p class="font-label-mono text-[9px] text-on-tertiary-container mt-1">8.5TB / 10TB</p>
+</td>
+<td class="p-md">
+<span class="flex items-center gap-xs font-label-mono text-[10px] text-primary-container uppercase">
+<span class="w-1.5 h-1.5 bg-primary-container rounded-full"></span> Active
+                                    </span>
+</td>
+<td class="p-md text-right">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant cursor-pointer hover:text-primary-container transition-colors">more_vert</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high group transition-colors">
+<td class="p-md flex items-center gap-md">
+<div class="w-8 h-8 bg-surface-variant border border-outline-variant overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A professional digital avatar of a male junior compositor. He wears a black hoodie and has a tech-savvy appearance with a focused expression. The background is a minimalist office environment with dark panels and subtle blue light accents, consistent with a high-end cinematic post-production aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6hrFQEmA-MqggOh1jhZbloQIUDLeOB2HpoJzso_JPYRbw-xuuNqj0n7bZ3vGk2SXu99tHKhkesLDTraV08B9veeJ5vCRORCxvIoBngeU30peu0kIZR_4A44PrxClWDJv2dASt99LMBxejlQGobmhfk6kMgV8X2-JBdKalTL4VspsM627zNYamDrhyMObWl-IzGTZ23vtE99uDMjzMG7FJWK58jb25ewDEt1rwVMZ5G5rSnXpVJc_I8QndvD8Qb932OWQdfRbznOI-"/>
+</div>
+<div>
+<p class="font-body-base text-on-surface text-sm">Sarah_K_Node</p>
+<p class="font-label-mono text-[9px] text-on-tertiary-container uppercase">s.ken@cinepost.io</p>
+</div>
+</td>
+<td class="p-md">
+<span class="px-xs py-[2px] border border-outline text-on-surface-variant text-[8px] font-label-mono uppercase">VFX_Compositor</span>
+</td>
+<td class="p-md font-label-mono text-xs text-on-surface-variant">IDLE</td>
+<td class="p-md">
+<div class="w-24 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 12%"></div>
+</div>
+<p class="font-label-mono text-[9px] text-on-tertiary-container mt-1">0.6TB / 5TB</p>
+</td>
+<td class="p-md">
+<span class="flex items-center gap-xs font-label-mono text-[10px] text-on-tertiary-container uppercase">
+<span class="w-1.5 h-1.5 bg-on-tertiary-container rounded-full"></span> Offline
+                                    </span>
+</td>
+<td class="p-md text-right">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant cursor-pointer hover:text-primary-container transition-colors">more_vert</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high group transition-colors">
+<td class="p-md flex items-center gap-md">
+<div class="w-8 h-8 bg-surface-variant border border-outline-variant overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A professional digital avatar of a colorist wearing a tactical black polo shirt. He has short hair and a concentrated look. The background is a specialized color grading suite with a large high-fidelity monitor glowing with intense cinematic orange and teal hues, maintaining a cold technical minimalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEo3B2hIj1zQ7ZzBceQjl-YL9eAuAq5g5QwaXAqyfwb7Vwn5Cal-fpKQrRPqqN22kaxH1ZX-D8ArG-3xaPdw_tAwPOVVf9Mq6-Z-8XvwZ2W5IEG-EqxyzIFCSY73xOk99xNpZmkdMMWtH_Csj7NcYFXIbZlDqBYgIN2j1emsDulXC_TEriSmlJ9T_I8XMstJUoazBC0vEBQD6_jOcJEpH7O1cNYMixlWEWqreBioSYEgBu0OrI6XrkhuHTvI_rKMzsc90c8Ehby8sl"/>
+</div>
+<div>
+<p class="font-body-base text-on-surface text-sm">L_Chen_DIT</p>
+<p class="font-label-mono text-[9px] text-on-tertiary-container uppercase">l.chen@cinepost.io</p>
+</div>
+</td>
+<td class="p-md">
+<span class="px-xs py-[2px] border border-outline text-on-surface-variant text-[8px] font-label-mono uppercase">DIT_Master</span>
+</td>
+<td class="p-md font-label-mono text-xs text-on-surface-variant">TRANSFER_HUB_01</td>
+<td class="p-md">
+<div class="w-24 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 98%"></div>
+</div>
+<p class="font-label-mono text-[9px] text-error mt-1">CRITICAL: 49TB / 50TB</p>
+</td>
+<td class="p-md">
+<span class="flex items-center gap-xs font-label-mono text-[10px] text-primary-container uppercase">
+<span class="w-1.5 h-1.5 bg-primary-container rounded-full"></span> Active
+                                    </span>
+</td>
+<td class="p-md text-right">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant cursor-pointer hover:text-primary-container transition-colors">more_vert</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-md border-t border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<p class="font-label-mono text-[9px] text-on-tertiary-container uppercase">Showing_Records: 1-12 of 128</p>
+<div class="flex gap-gutter">
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant bg-surface text-on-surface hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center border border-primary-container bg-primary-container/10 text-primary-container font-label-mono text-xs">1</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant bg-surface text-on-surface hover:bg-surface-variant font-label-mono text-xs">2</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant bg-surface text-on-surface hover:bg-surface-variant font-label-mono text-xs">3</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant bg-surface text-on-surface hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Scanning line overlay effect -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] z-[100] grid-bg"></div>
+</body></html>

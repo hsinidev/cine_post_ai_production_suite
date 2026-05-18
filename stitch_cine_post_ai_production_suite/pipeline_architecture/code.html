@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NEON_CORE | Workflow Integration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #121414;
+            color: #e2e2e2;
+            margin: 0;
+            overflow: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #00f2ff, transparent);
+            position: absolute;
+            top: 0;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        .grid-bg {
+            background-image: linear-gradient(#2a2d2d 1px, transparent 1px), linear-gradient(90deg, #2a2d2d 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#5d6060",
+                        "tertiary-fixed-dim": "#c5c7c6",
+                        "background": "#121414",
+                        "inverse-on-surface": "#2f3131",
+                        "surface-container": "#1e2020",
+                        "on-background": "#e2e2e2",
+                        "tertiary-fixed": "#e1e3e2",
+                        "on-secondary-container": "#b6b5b4",
+                        "surface-tint": "#00dbe7",
+                        "on-error": "#690005",
+                        "tertiary": "#f6f8f7",
+                        "error-container": "#93000a",
+                        "surface": "#121414",
+                        "on-primary-fixed": "#002022",
+                        "on-secondary-fixed-variant": "#464747",
+                        "primary-fixed-dim": "#00dbe7",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface-bright": "#383939",
+                        "on-surface-variant": "#b9cacb",
+                        "surface-variant": "#333535",
+                        "on-tertiary-fixed-variant": "#444747",
+                        "on-tertiary": "#2e3131",
+                        "outline-variant": "#3a494b",
+                        "on-primary-fixed-variant": "#004f54",
+                        "on-surface": "#e2e2e2",
+                        "primary-container": "#00f2ff",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "on-secondary": "#303030",
+                        "surface-container-low": "#1a1c1c",
+                        "outline": "#849495",
+                        "primary": "#e1fdff",
+                        "on-tertiary-fixed": "#191c1c",
+                        "secondary-container": "#464747",
+                        "secondary": "#c7c6c6",
+                        "on-primary": "#00363a",
+                        "tertiary-container": "#d9dbdb",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-dim": "#121414",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#74f5ff",
+                        "surface-container-highest": "#333535",
+                        "surface-container-lowest": "#0d0f0f",
+                        "surface-container-high": "#282a2a",
+                        "inverse-primary": "#00696f",
+                        "on-primary-container": "#006a71",
+                        "secondary-fixed": "#e3e2e2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "1px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "panel-margin": "12px",
+                        "lg": "24px",
+                        "xl": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Space Grotesk"],
+                        "data-num": ["Space Grotesk"],
+                        "label-mono": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-base": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "data-num": ["13px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-mono": ["11px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-base": ["15px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-64 bg-surface dark:bg-surface border-r border-outline-variant flex flex-col py-md z-50">
+<div class="px-md mb-xl">
+<div class="font-headline-md text-headline-md font-bold text-primary-container tracking-tighter uppercase">NEON_CORE</div>
+<div class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant opacity-60">V0.4.2_STABLE</div>
+</div>
+<div class="px-sm flex flex-col gap-xs flex-grow">
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider transition-colors duration-150 text-on-surface-variant hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider transition-colors duration-150 text-on-surface-variant hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span>AI Gallery</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider transition-all duration-75 text-primary-container border-l-2 border-primary-container bg-primary-container/10" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>Workflow</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider transition-colors duration-150 text-on-surface-variant hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Team</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider transition-colors duration-150 text-on-surface-variant hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span>Admin Panel</span>
+</a>
+</div>
+<div class="px-sm mt-auto border-t border-outline-variant/30 pt-md">
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider transition-colors duration-150 text-on-surface-variant hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider transition-colors duration-150 text-on-surface-variant hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<div class="mt-md px-md py-sm bg-primary-container text-on-primary-container font-label-mono text-center cursor-pointer hover:opacity-90 transition-opacity uppercase font-bold tracking-widest">
+                New Project
+            </div>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface-dim dark:bg-surface-dim border-b border-outline-variant flex items-center justify-between px-lg z-40">
+<div class="flex items-center gap-md flex-1">
+<div class="bg-surface-container border border-outline-variant px-md py-xs w-64 flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 font-label-mono text-label-mono text-on-surface placeholder:text-on-surface-variant/50 w-full uppercase" placeholder="SEARCH_ASSETS_OR_NODES..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#00f2ff]"></span>
+<span class="font-label-mono text-label-mono text-primary-container uppercase font-bold">Processing</span>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant">
+<button class="hover:text-primary-container transition-opacity"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:text-primary-container transition-opacity"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+<div class="h-8 w-8 border border-outline-variant overflow-hidden">
+<img alt="Editor Profile" class="w-full h-full object-cover grayscale brightness-75" data-alt="A close-up portrait of a professional film editor in a dark studio. The lighting is dominated by the cool blue and cyan glow of high-resolution monitors reflecting off his glasses. He has a focused expression, representing technical expertise. The background is a blurred array of high-end rack-mounted processing hardware with tiny status LEDs. The overall mood is cold, cinematic, and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-IsPHYrK1qgFNG6Z8t7JuSDNNhDAEAK5AuQpyWwBenfFljrkuhjG9-VX-cibo4qZreGjRZTCPEZWCdtgZ3O0mMRdU6zx153ysDsGkAce0rKaISdhshZ4u3qQfhD0UJaCvACik79PW1IEmCsRzC9yO_xSny1pnUicK4al4cDL5ZEvOxbbbPLNKqO0EcnlS3eGW__sl_4Kib5Bs4BNp0VuV7vwbBtHQFlhTqqNu5kzzkHplZAcB1pH_g6zssPhoocgwr2N6v8W89cGz"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-64 mt-16 h-[calc(100vh-4rem)] relative overflow-hidden grid-bg">
+<!-- Visual Scanline -->
+<div class="scanline"></div>
+<!-- Schematic Viewport -->
+<div class="absolute inset-0 p-lg overflow-auto">
+<div class="relative w-[1200px] h-[800px] mx-auto">
+<!-- SVG Connections -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" style="filter: drop-shadow(0 0 2px #00f2ff66);">
+<!-- Path from S3 to Upscaler -->
+<path d="M 220 200 L 450 300" fill="none" stroke="#00f2ff" stroke-dasharray="4,4" stroke-width="1"></path>
+<!-- Path from Dropbox to Upscaler -->
+<path d="M 220 400 L 450 320" fill="none" stroke="#00f2ff" stroke-dasharray="4,4" stroke-width="1"></path>
+<!-- Path from Upscaler to Color Engine -->
+<path d="M 680 310 L 850 310" fill="none" stroke="#00f2ff" stroke-width="2"></path>
+<!-- Path from Color Engine to Master Storage -->
+<path d="M 1080 310 L 1150 310" fill="none" stroke="#00f2ff" stroke-dasharray="2,2" stroke-width="1"></path>
+</svg>
+<!-- Storage Node 1: S3 -->
+<div class="absolute top-[150px] left-[20px] w-48 bg-surface-container border border-outline-variant p-sm">
+<div class="flex justify-between items-center mb-xs">
+<span class="font-label-mono text-label-mono text-primary-container">STORAGE_01</span>
+<span class="material-symbols-outlined text-sm" data-icon="cloud">cloud</span>
+</div>
+<div class="font-headline-md text-headline-md tracking-tighter mb-sm">S3_RAW</div>
+<div class="space-y-unit">
+<div class="flex justify-between font-label-mono text-[9px] uppercase">
+<span class="text-on-surface-variant">Throughput</span>
+<span class="text-primary-container">1.2 GB/S</span>
+</div>
+<div class="w-full bg-surface-variant h-1">
+<div class="bg-primary-container h-full w-3/4"></div>
+</div>
+<div class="flex justify-between font-label-mono text-[9px] uppercase">
+<span class="text-on-surface-variant">Latency</span>
+<span class="text-on-surface">12ms</span>
+</div>
+</div>
+</div>
+<!-- Storage Node 2: Dropbox -->
+<div class="absolute top-[350px] left-[20px] w-48 bg-surface-container border border-outline-variant p-sm">
+<div class="flex justify-between items-center mb-xs">
+<span class="font-label-mono text-label-mono text-on-surface-variant">STORAGE_02</span>
+<span class="material-symbols-outlined text-sm" data-icon="folder_shared">folder_shared</span>
+</div>
+<div class="font-headline-md text-headline-md tracking-tighter mb-sm">DBX_PROXIES</div>
+<div class="space-y-unit">
+<div class="flex justify-between font-label-mono text-[9px] uppercase">
+<span class="text-on-surface-variant">Throughput</span>
+<span class="text-primary-container">450 MB/S</span>
+</div>
+<div class="w-full bg-surface-variant h-1">
+<div class="bg-primary-container h-full w-1/4"></div>
+</div>
+<div class="flex justify-between font-label-mono text-[9px] uppercase">
+<span class="text-on-surface-variant">Latency</span>
+<span class="text-on-surface">45ms</span>
+</div>
+</div>
+</div>
+<!-- AI Engine: Upscaler -->
+<div class="absolute top-[250px] left-[450px] w-56 bg-surface-container-high border border-primary-container/50 p-md shadow-[0_0_20px_rgba(0,242,255,0.1)]">
+<div class="flex justify-between items-center mb-sm">
+<span class="font-label-mono text-label-mono text-primary-container font-bold">ENGINE_ALPHA</span>
+<span class="material-symbols-outlined text-primary-container" data-icon="memory">memory</span>
+</div>
+<div class="font-headline-md text-headline-md tracking-tighter mb-md text-primary-container">4K_UPSCALER_V4</div>
+<div class="space-y-sm">
+<div class="grid grid-cols-2 gap-xs">
+<div class="border border-outline-variant p-xs">
+<div class="font-label-mono text-[8px] text-on-surface-variant">GPU_LOAD</div>
+<div class="font-data-num text-sm text-on-surface">92.4%</div>
+</div>
+<div class="border border-outline-variant p-xs">
+<div class="font-label-mono text-[8px] text-on-surface-variant">MEM_USE</div>
+<div class="font-data-num text-sm text-on-surface">22.1GB</div>
+</div>
+</div>
+<div class="h-8 flex items-end gap-[2px]">
+<div class="bg-primary-container h-3/4 w-1"></div>
+<div class="bg-primary-container h-1/2 w-1"></div>
+<div class="bg-primary-container h-full w-1"></div>
+<div class="bg-primary-container h-4/5 w-1"></div>
+<div class="bg-primary-container h-2/3 w-1"></div>
+<div class="bg-primary-container h-1/3 w-1"></div>
+<div class="bg-primary-container h-3/4 w-1"></div>
+</div>
+</div>
+</div>
+<!-- AI Engine: Color Engine -->
+<div class="absolute top-[250px] left-[850px] w-56 bg-surface-container-high border border-outline-variant p-md">
+<div class="flex justify-between items-center mb-sm">
+<span class="font-label-mono text-label-mono text-on-surface-variant">ENGINE_BETA</span>
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+</div>
+<div class="font-headline-md text-headline-md tracking-tighter mb-md">LUT_RESOLVER</div>
+<div class="space-y-sm">
+<div class="flex items-center gap-sm">
+<span class="font-label-mono text-[10px] bg-secondary-container px-xs py-[2px] rounded-xs">ACES_LOGC</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="arrow_forward">arrow_forward</span>
+<span class="font-label-mono text-[10px] bg-primary-container/20 text-primary-container border border-primary-container/30 px-xs py-[2px] rounded-xs">REC.709</span>
+</div>
+<div class="border-t border-outline-variant pt-sm">
+<div class="font-label-mono text-[8px] text-on-surface-variant mb-xs">FRAME_RATE</div>
+<div class="font-data-num text-xl text-primary-container">48 <span class="text-xs">FPS</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Data Telemetry Panel (Right Side) -->
+<aside class="absolute top-md right-md w-72 bg-surface-container/80 backdrop-blur-xl border border-outline-variant p-md z-30">
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-md border-b border-outline-variant pb-xs">Global Telemetry</div>
+<div class="space-y-lg">
+<div>
+<div class="flex justify-between items-end mb-sm">
+<div class="font-label-mono text-[10px] text-on-surface-variant">NETWORK_THROUGHPUT</div>
+<div class="font-data-num text-xl text-primary-container">1.65 GB/s</div>
+</div>
+<div class="h-12 w-full flex items-center justify-center overflow-hidden">
+<img alt="Throughput Graph" class="w-full h-full object-cover opacity-50 grayscale invert" data-alt="A detailed, high-density line graph visualization showing jagged peaks and valleys representing real-time data throughput. The graph is rendered in bright cyan over a dark, technical grid background. Thin 1px grid lines provide scale. The aesthetic is cold, analytical, and futuristic, reminiscent of a high-end film production telemetry dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJlXXM7Cr_9aFwtPrrspdtGGLz7G15cak-f_zYjbXFZ8T_Bu3NOqqYtUijhuBWT23rJblFW4x1u9hV7GvPMQUKu2xrxzyZ3yMpgVwqyKxVhyV8XkdSHQU6QD4OyUjE1i8G16gNfn6Iss_Xp1wL2e3WGF0iKr768CLASyK9nSlx2rAwEa6vvQCmAMtgx4YixatVR24LiIV8khpEDK9XxImDpiEeJbbC9I39BzsIRdoYQOmQmzHOZ2t6MLqMXTzYB8ZS9EP-EoevXNJr"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-xs">
+<div class="font-label-mono text-[9px] text-on-surface-variant">ACTIVE_NODES</div>
+<div class="font-data-num text-lg">04</div>
+</div>
+<div class="space-y-xs">
+<div class="font-label-mono text-[9px] text-on-surface-variant">PIPELINE_ERROR</div>
+<div class="font-data-num text-lg text-error">0.00%</div>
+</div>
+<div class="space-y-xs">
+<div class="font-label-mono text-[9px] text-on-surface-variant">EST_COMPLETION</div>
+<div class="font-data-num text-lg">14:22:04</div>
+</div>
+<div class="space-y-xs">
+<div class="font-label-mono text-[9px] text-on-surface-variant">BUFF_STATUS</div>
+<div class="font-data-num text-lg text-primary-container">OPTIMAL</div>
+</div>
+</div>
+<div class="pt-md">
+<button class="w-full border border-primary-container text-primary-container font-label-mono py-sm hover:bg-primary-container hover:text-on-primary-container transition-all uppercase text-[10px] tracking-widest font-bold">
+                        EXECUTE_PIPELINE
+                    </button>
+</div>
+</div>
+</aside>
+<!-- Bottom Controls -->
+<div class="absolute bottom-md left-md right-md flex justify-between items-end pointer-events-none">
+<div class="pointer-events-auto bg-surface-container border border-outline-variant p-sm flex items-center gap-lg">
+<div class="flex items-center gap-sm">
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:bg-surface-variant"><span class="material-symbols-outlined text-sm" data-icon="add">add</span></button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:bg-surface-variant"><span class="material-symbols-outlined text-sm" data-icon="remove">remove</span></button>
+</div>
+<div class="h-6 w-gutter bg-outline-variant"></div>
+<div class="font-label-mono text-[10px] text-on-surface-variant">VIEWPORT: 100% | WORKFLOW_ID: NC_882_PX</div>
+</div>
+<div class="pointer-events-auto flex gap-sm">
+<div class="bg-surface-container border border-outline-variant px-md py-sm font-label-mono text-[10px] flex items-center gap-md">
+<span class="text-on-surface-variant">AUTO_SAVE:</span>
+<span class="text-primary-container">ENABLED</span>
+</div>
+<div class="bg-surface-container border border-outline-variant px-md py-sm font-label-mono text-[10px] flex items-center gap-md">
+<span class="text-on-surface-variant">ENCRYPTION:</span>
+<span class="text-primary-container">AES_256</span>
+</div>
+</div>
+</div>
+</main>
+</body></html>

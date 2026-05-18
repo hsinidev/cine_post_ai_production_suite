@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-tertiary-container": "#5d6060",
+                  "tertiary-fixed-dim": "#c5c7c6",
+                  "background": "#121414",
+                  "inverse-on-surface": "#2f3131",
+                  "surface-container": "#1e2020",
+                  "on-background": "#e2e2e2",
+                  "tertiary-fixed": "#e1e3e2",
+                  "on-secondary-container": "#b6b5b4",
+                  "surface-tint": "#00dbe7",
+                  "on-error": "#690005",
+                  "tertiary": "#f6f8f7",
+                  "error-container": "#93000a",
+                  "surface": "#121414",
+                  "on-primary-fixed": "#002022",
+                  "on-secondary-fixed-variant": "#464747",
+                  "primary-fixed-dim": "#00dbe7",
+                  "on-error-container": "#ffdad6",
+                  "on-secondary-fixed": "#1b1c1c",
+                  "surface-bright": "#383939",
+                  "on-surface-variant": "#b9cacb",
+                  "surface-variant": "#333535",
+                  "on-tertiary-fixed-variant": "#444747",
+                  "on-tertiary": "#2e3131",
+                  "outline-variant": "#3a494b",
+                  "on-primary-fixed-variant": "#004f54",
+                  "on-surface": "#e2e2e2",
+                  "primary-container": "#00f2ff",
+                  "secondary-fixed-dim": "#c7c6c6",
+                  "on-secondary": "#303030",
+                  "surface-container-low": "#1a1c1c",
+                  "outline": "#849495",
+                  "primary": "#e1fdff",
+                  "on-tertiary-fixed": "#191c1c",
+                  "secondary-container": "#464747",
+                  "secondary": "#c7c6c6",
+                  "on-primary": "#00363a",
+                  "tertiary-container": "#d9dbdb",
+                  "inverse-surface": "#e2e2e2",
+                  "surface-dim": "#121414",
+                  "error": "#ffb4ab",
+                  "primary-fixed": "#74f5ff",
+                  "surface-container-highest": "#333535",
+                  "surface-container-lowest": "#0d0f0f",
+                  "surface-container-high": "#282a2a",
+                  "inverse-primary": "#00696f",
+                  "on-primary-container": "#006a71",
+                  "secondary-fixed": "#e3e2e2"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "gutter": "1px",
+                  "unit": "4px",
+                  "md": "16px",
+                  "sm": "8px",
+                  "xs": "4px",
+                  "panel-margin": "12px",
+                  "lg": "24px",
+                  "xl": "40px"
+          },
+          "fontFamily": {
+                  "headline-xl": ["Space Grotesk"],
+                  "data-num": ["Space Grotesk"],
+                  "label-mono": ["Space Grotesk"],
+                  "headline-md": ["Space Grotesk"],
+                  "body-base": ["Space Grotesk"]
+          },
+          "fontSize": {
+                  "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "data-num": ["13px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                  "label-mono": ["11px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                  "headline-md": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                  "body-base": ["15px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .scanline {
+      background: linear-gradient(to bottom, transparent 50%, rgba(0, 242, 255, 0.05) 50.5%, transparent 51%);
+      background-size: 100% 4px;
+    }
+    .glitch-border {
+      box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-base selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<!-- Side Navigation Shell -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface flex flex-col py-md border-r border-outline-variant z-50">
+<div class="px-md mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary-container tracking-tighter">NEON_CORE</h1>
+<p class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant">V0.4.2_STABLE</p>
+</div>
+<nav class="flex-1 space-y-gutter">
+<a class="flex items-center gap-sm px-md py-sm text-primary-container border-l-2 border-primary-container bg-primary-container/10 font-label-mono text-label-mono uppercase tracking-wider transition-all duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+        Dashboard
+      </a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-mono text-label-mono uppercase tracking-wider transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+        AI Gallery
+      </a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-mono text-label-mono uppercase tracking-wider transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+        Workflow
+      </a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-mono text-label-mono uppercase tracking-wider transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">group</span>
+        Team
+      </a>
+<a class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-mono text-label-mono uppercase tracking-wider transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+        Admin Panel
+      </a>
+</nav>
+<div class="px-md mt-auto pt-md border-t border-outline-variant">
+<button class="w-full bg-primary-container text-on-primary-container font-label-mono text-label-mono uppercase tracking-widest py-sm mb-md hover:opacity-90 transition-opacity">
+        New Project
+      </button>
+<div class="space-y-sm">
+<a class="flex items-center gap-sm text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">settings</span>
+          Settings
+        </a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">help</span>
+          Support
+        </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="ml-64 flex flex-col h-screen">
+<!-- Top App Bar Shell -->
+<header class="h-16 bg-surface-dim flex items-center justify-between px-lg border-b border-outline-variant z-40">
+<div class="flex items-center gap-md">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline text-sm">search</span>
+<input class="bg-surface-container-low border-b border-outline-variant text-label-mono font-label-mono py-1 pl-10 pr-4 focus:outline-none focus:border-primary-container w-64" placeholder="SEARCH_JOBS_OR_ASSETS..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-mono text-label-mono text-primary-container">Processing</span>
+</div>
+<div class="flex items-center gap-sm border-l border-outline-variant pl-lg">
+<button class="text-on-surface-variant hover:text-primary-container transition-opacity"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-on-surface-variant hover:text-primary-container transition-opacity"><span class="material-symbols-outlined">settings</span></button>
+<img alt="Editor Profile" class="w-8 h-8 border border-primary-container/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqJ7tCPQfVGbWpsT0YtTmy3SHUSsWcAcgaLayVJoXmtSdVCwTwQDB2K4ygZYypB8Zs5ZxBPJkYh5ToSjnzm7PgFVq3xrtHCgCskjvskMZF1auKiz3Gafz1A3EH1ApfU8K-67qfOSl0ALWbrRyKrlEgbts2MRy6yWmQE-wMq0-w-hd99Pu1Dj6NB26yt_9NRPHa0mM8i1mu1_MDokeAusQrKwhnV0cQzX_m__hdZsT_zxAfuMJ4Q3LVB-1cWUG46s2w1du7T_atqgAB"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Grid -->
+<main class="flex-1 overflow-hidden grid grid-cols-12">
+<!-- Central View: AI Render Jobs -->
+<section class="col-span-8 p-panel-margin overflow-y-auto scanline custom-scrollbar">
+<div class="flex items-center justify-between mb-md">
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface">ACTIVE_AI_RENDER_PIPELINE</h2>
+<p class="font-label-mono text-label-mono text-on-surface-variant">NODE_CLUSTER_04 // ALPHA_RENDERER</p>
+</div>
+<div class="flex gap-xs">
+<div class="px-sm py-xs border border-outline-variant bg-surface-container-low font-label-mono text-[10px] text-on-surface-variant">4K_LOG</div>
+<div class="px-sm py-xs border border-outline-variant bg-surface-container-low font-label-mono text-[10px] text-primary-container">RAW_INTENSE</div>
+</div>
+</div>
+<!-- Render Job Cards -->
+<div class="space-y-md">
+<!-- Job 1 -->
+<div class="bg-surface-container p-md border border-outline-variant relative group overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-1 bg-primary-container"></div>
+<div class="flex gap-md">
+<div class="w-40 h-24 bg-surface-container-highest border border-outline-variant flex-shrink-0 relative">
+<img class="w-full h-full object-cover opacity-60" data-alt="A moody, high-contrast cinematic film still showing a dark alleyway in a futuristic neon-lit city, with steam rising from vents and deep cyan shadows. The visual style is technical, cold, and hyper-functional, maintaining a disciplined aesthetic perfect for a film post-production interface. The lighting is low-key, with sharp highlights cutting through the deep black environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq-sB4k-Vrv5sPxEZ13Q27mMif-v0DPb1hoamz_b4tJdn6xlTOL9cperWsXB6gu17xt2_ULZmw4FCZyyWJRxBSm9dB3In2wpZSDbyOpBylZY_1qAOaD9_zYgdQh1Fr_Tq76-GF8uj_2wOPYvktuymFdAVUu7Pv_zJU4nZmaknl8RSPz_AdLQXX5ujc76_e1t3ueUM8GG3KTBJTTgHXTJIKy5FNlDcXhHhXaM1ekikwpyUu4kTqKwTg4YeYSPlGUqyGOTFsqvoZfOGm"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="font-label-mono text-[10px] text-primary-container bg-black/80 px-1">JOB_ID: 8821</span>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-xs">
+<span class="font-label-mono text-label-mono text-on-surface">SCENE_042_UPSCALING_X8</span>
+<span class="font-data-num text-data-num text-primary-container">78.4%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest border border-outline-variant mb-md">
+<div class="h-full bg-primary-container" style="width: 78.4%"></div>
+</div>
+<div class="grid grid-cols-4 gap-sm font-label-mono text-[10px] text-on-surface-variant">
+<div>ETA: <span class="text-on-surface">00:14:22</span></div>
+<div>FRAMES: <span class="text-on-surface">240/310</span></div>
+<div>BITRATE: <span class="text-on-surface">450MB/s</span></div>
+<div>TEMP: <span class="text-on-surface">64°C</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Job 2 -->
+<div class="bg-surface-container p-md border border-outline-variant relative group overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-1 bg-primary-container"></div>
+<div class="flex gap-md">
+<div class="w-40 h-24 bg-surface-container-highest border border-outline-variant flex-shrink-0 relative">
+<img class="w-full h-full object-cover opacity-60" data-alt="A high-precision technical close-up of a high-end film camera lens focusing on a futuristic landscape, characterized by deep blacks and vibrant cyan glowing elements. The image captures the essence of a mission control console with ultra-sharp detail and a disciplined, minimalist atmosphere. The color palette is strictly dark with neon accents, conveying a sense of advanced cinematic technology." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4SRwtvlRnJuCejbNNLbezJ-5kPixVGrsydCArV64Lhc_Vqca59NPtw98v9vYkrAxU-5C3CfZF_HmNh3EJjJ3BRHZy6JqqMajRLgU8A_JepLQN81B9604gKe6WthrsTkCyMweo2yfrNPlymGnv_ZxQ1b7Pbs2tA9lHH681b7QczIJL0mUgx0mMU5fWmeb4iCpgfEUVYbCcfyWajAbw6mUn-GdxXTIg9z1ZzkvD0TATvFtpmYxlmyxEg5k_gZMZ9AhjVJ3GQbuNYAZJ"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="font-label-mono text-[10px] text-primary-container bg-black/80 px-1">JOB_ID: 9012</span>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-xs">
+<span class="font-label-mono text-label-mono text-on-surface">DYNAMIC_DENOISE_PASS_2</span>
+<span class="font-data-num text-data-num text-primary-container">32.1%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest border border-outline-variant mb-md">
+<div class="h-full bg-primary-container" style="width: 32.1%"></div>
+</div>
+<div class="grid grid-cols-4 gap-sm font-label-mono text-[10px] text-on-surface-variant">
+<div>ETA: <span class="text-on-surface">01:05:44</span></div>
+<div>FRAMES: <span class="text-on-surface">92/280</span></div>
+<div>BITRATE: <span class="text-on-surface">210MB/s</span></div>
+<div>TEMP: <span class="text-on-surface">71°C</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Job 3 (Complete State) -->
+<div class="bg-surface-container-low p-md border border-outline-variant relative opacity-60">
+<div class="absolute left-0 top-0 h-full w-1 bg-on-surface-variant"></div>
+<div class="flex gap-md">
+<div class="w-40 h-24 bg-surface-container-highest border border-outline-variant flex-shrink-0 relative grayscale">
+<img class="w-full h-full object-cover" data-alt="A cinematic, wide-angle shot of an editing suite in a dark, professional studio. Glowing monitor screens illuminate the technical interface of a film post-production dashboard. The color scheme is dominated by deep space blacks and subtle cyan backlighting. The mood is high-stakes and disciplined, reflecting a professional cinematic environment with advanced hardware-software integration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfLhYf3ODqrv-JriCvX0veSQhr_VYe1r2s1cVkpePY1VGbVCrlC2ZUe9xO2IhmEdF8ocwdrdgwu2_0-EAR83BmDNkbj3HIq8bmyELbNjUU73Kpy7DP8udx_2mby3aAS3A1a-69NDbAhiBzwLxp5r77JqFX9ig5Uzn7WeU4U3iebtX0_frlutOvXk5dHE33OlOx940lyyslrFwcGtrHmzqhrWU429n_KxB_MOzkhpz5RJJ9PW_LTvtft60zaN7VO_Eq8Ik5i2Zc_O2d"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/40">
+<span class="material-symbols-outlined text-on-surface">check_circle</span>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-xs">
+<span class="font-label-mono text-label-mono text-on-surface-variant">COLOR_GRADING_BAKE_V4</span>
+<span class="font-data-num text-data-num text-on-surface-variant">100%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest border border-outline-variant mb-md">
+<div class="h-full bg-on-surface-variant" style="width: 100%"></div>
+</div>
+<div class="font-label-mono text-[10px] text-on-surface-variant uppercase">FINISHED_AT: 14:22:01 // PATH: /VOL_01/EXPORT/SC_42_V4.MOV</div>
+</div>
+</div>
+</div>
+</div>
+<!-- GPU Monitor Section -->
+<div class="mt-xl">
+<h3 class="font-label-mono text-label-mono uppercase tracking-widest text-on-surface mb-md">HARDWARE_TELEMETRY</h3>
+<div class="grid grid-cols-3 gap-md">
+<div class="bg-surface-container p-sm border border-outline-variant">
+<div class="flex justify-between font-label-mono text-[9px] text-on-surface-variant mb-xs">
+<span>GPU_01: RTX_4090</span>
+<span class="text-primary-container">92%</span>
+</div>
+<div class="h-10 flex items-end gap-[2px]">
+<div class="bg-primary-container/20 w-full h-[60%]"></div>
+<div class="bg-primary-container/20 w-full h-[70%]"></div>
+<div class="bg-primary-container/20 w-full h-[65%]"></div>
+<div class="bg-primary-container/40 w-full h-[85%]"></div>
+<div class="bg-primary-container w-full h-[92%]"></div>
+</div>
+</div>
+<div class="bg-surface-container p-sm border border-outline-variant">
+<div class="flex justify-between font-label-mono text-[9px] text-on-surface-variant mb-xs">
+<span>GPU_02: RTX_4090</span>
+<span class="text-primary-container">88%</span>
+</div>
+<div class="h-10 flex items-end gap-[2px]">
+<div class="bg-primary-container/20 w-full h-[50%]"></div>
+<div class="bg-primary-container/20 w-full h-[55%]"></div>
+<div class="bg-primary-container/40 w-full h-[80%]"></div>
+<div class="bg-primary-container/40 w-full h-[82%]"></div>
+<div class="bg-primary-container w-full h-[88%]"></div>
+</div>
+</div>
+<div class="bg-surface-container p-sm border border-outline-variant">
+<div class="flex justify-between font-label-mono text-[9px] text-on-surface-variant mb-xs">
+<span>VRAM_AVAILABILITY</span>
+<span class="text-primary-container">18.4GB</span>
+</div>
+<div class="h-10 bg-surface-container-highest relative">
+<div class="absolute inset-0 flex flex-col justify-between p-1">
+<div class="h-[2px] bg-primary-container" style="width: 74%"></div>
+<div class="h-[2px] bg-primary-container/50" style="width: 45%"></div>
+<div class="h-[2px] bg-primary-container/30" style="width: 32%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Sidebar: Team Feedback/Comment Section -->
+<aside class="col-span-4 border-l border-outline-variant bg-surface flex flex-col overflow-hidden">
+<div class="p-md border-b border-outline-variant">
+<h3 class="font-label-mono text-label-mono uppercase tracking-widest text-on-surface">LIVE_TEAM_FEEDBACK</h3>
+<p class="font-label-mono text-[10px] text-on-surface-variant">ACTIVE_SESSION: 4 USERS</p>
+</div>
+<div class="flex-1 overflow-y-auto p-md space-y-md custom-scrollbar">
+<!-- Comment 1 -->
+<div class="group">
+<div class="flex items-center justify-between mb-xs">
+<div class="flex items-center gap-xs">
+<span class="font-label-mono text-label-mono text-primary-container">@MARCUS_EDITOR</span>
+<span class="font-label-mono text-[9px] text-on-surface-variant">12:44</span>
+</div>
+<div class="px-xs py-0.5 border border-outline-variant text-[9px] font-label-mono text-on-surface-variant">FR: 1042</div>
+</div>
+<div class="bg-surface-container-low p-sm border-l-2 border-primary-container/40 group-hover:border-primary-container transition-all">
+<p class="text-body-base text-xs text-on-surface">Black levels are crushing too much in the bottom left quadrant. Need more detail in the shadow noise pass.</p>
+</div>
+</div>
+<!-- Comment 2 -->
+<div class="group">
+<div class="flex items-center justify-between mb-xs">
+<div class="flex items-center gap-xs">
+<span class="font-label-mono text-label-mono text-tertiary-fixed-dim">@SARAH_COLOR</span>
+<span class="font-label-mono text-[9px] text-on-surface-variant">13:12</span>
+</div>
+<div class="px-xs py-0.5 border border-outline-variant text-[9px] font-label-mono text-on-surface-variant">VER: 0.9.1</div>
+</div>
+<div class="bg-surface-container-low p-sm border-l-2 border-outline-variant group-hover:border-primary-container transition-all">
+<p class="text-body-base text-xs text-on-surface">Upscale artifacts appearing on the chrome surfaces. Adjusting sharpness kernel to 0.45 for next iteration.</p>
+</div>
+</div>
+<!-- Comment 3 -->
+<div class="group">
+<div class="flex items-center justify-between mb-xs">
+<div class="flex items-center gap-xs">
+<span class="font-label-mono text-label-mono text-primary-container">@MARCUS_EDITOR</span>
+<span class="font-label-mono text-[9px] text-on-surface-variant">13:45</span>
+</div>
+<div class="px-xs py-0.5 border border-outline-variant text-[9px] font-label-mono text-on-surface-variant">GLOBAL</div>
+</div>
+<div class="bg-surface-container-low p-sm border-l-2 border-primary-container/40 group-hover:border-primary-container transition-all">
+<p class="text-body-base text-xs text-on-surface">Rendering looks stable on Node 4. Ready for review at 15:00.</p>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-md border-t border-outline-variant bg-surface-dim">
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between font-label-mono text-[9px] text-on-surface-variant uppercase px-1">
+<span>INSERT_FEEDBACK...</span>
+<span>ATTACH_FRAME_ID</span>
+</div>
+<div class="relative">
+<textarea class="w-full bg-surface-container border border-outline-variant p-sm text-xs font-body-base focus:outline-none focus:border-primary-container resize-none h-20 placeholder:text-outline-variant" placeholder="Type message..."></textarea>
+<button class="absolute bottom-2 right-2 p-1 bg-primary-container text-on-primary-container hover:opacity-80">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+</main>
+</div>
+<style>
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #2A2D2D;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #00F2FF;
+    }
+  </style>
+</body></html>

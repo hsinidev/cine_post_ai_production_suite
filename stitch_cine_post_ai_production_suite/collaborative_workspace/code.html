@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#5d6060",
+                        "tertiary-fixed-dim": "#c5c7c6",
+                        "background": "#121414",
+                        "inverse-on-surface": "#2f3131",
+                        "surface-container": "#1e2020",
+                        "on-background": "#e2e2e2",
+                        "tertiary-fixed": "#e1e3e2",
+                        "on-secondary-container": "#b6b5b4",
+                        "surface-tint": "#00dbe7",
+                        "on-error": "#690005",
+                        "tertiary": "#f6f8f7",
+                        "error-container": "#93000a",
+                        "surface": "#121414",
+                        "on-primary-fixed": "#002022",
+                        "on-secondary-fixed-variant": "#464747",
+                        "primary-fixed-dim": "#00dbe7",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface-bright": "#383939",
+                        "on-surface-variant": "#b9cacb",
+                        "surface-variant": "#333535",
+                        "on-tertiary-fixed-variant": "#444747",
+                        "on-tertiary": "#2e3131",
+                        "outline-variant": "#3a494b",
+                        "on-primary-fixed-variant": "#004f54",
+                        "on-surface": "#e2e2e2",
+                        "primary-container": "#00f2ff",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "on-secondary": "#303030",
+                        "surface-container-low": "#1a1c1c",
+                        "outline": "#849495",
+                        "primary": "#e1fdff",
+                        "on-tertiary-fixed": "#191c1c",
+                        "secondary-container": "#464747",
+                        "secondary": "#c7c6c6",
+                        "on-primary": "#00363a",
+                        "tertiary-container": "#d9dbdb",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-dim": "#121414",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#74f5ff",
+                        "surface-container-highest": "#333535",
+                        "surface-container-lowest": "#0d0f0f",
+                        "surface-container-high": "#282a2a",
+                        "inverse-primary": "#00696f",
+                        "on-primary-container": "#006a71",
+                        "secondary-fixed": "#e3e2e2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "1px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "panel-margin": "12px",
+                        "lg": "24px",
+                        "xl": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Space Grotesk"],
+                        "data-num": ["Space Grotesk"],
+                        "label-mono": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-base": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "data-num": ["13px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-mono": ["11px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-base": ["15px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .scanning-ui {
+            background: linear-gradient(0deg, transparent 0%, rgba(0, 242, 255, 0.05) 50%, transparent 100%);
+            background-size: 100% 200%;
+            pointer-events: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #121414; }
+        ::-webkit-scrollbar-thumb { background: #2A2D2D; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-base selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface border-r border-outline-variant flex flex-col py-md z-50">
+<div class="px-md mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary-container tracking-tighter">NEON_CORE</h1>
+<p class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant">V0.4.2_STABLE</p>
+</div>
+<nav class="flex-1 px-sm space-y-xs">
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">auto_awesome</span> AI Gallery
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">account_tree</span> Workflow
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-primary-container border-l-2 border-primary-container bg-primary-container/10 transition-all duration-75" href="#">
+<span class="material-symbols-outlined">group</span> Team
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span> Admin Panel
+            </a>
+</nav>
+<div class="px-sm mt-auto space-y-xs">
+<button class="w-full mb-md px-md py-sm bg-primary-container text-on-primary-container font-label-mono text-label-mono uppercase tracking-widest text-center font-bold">
+                New Project
+            </button>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">help</span> Support
+            </a>
+</div>
+</aside>
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface-dim border-b border-outline-variant flex items-center justify-between px-lg z-40">
+<div class="flex items-center gap-lg">
+<div class="flex items-center bg-surface-container px-md py-xs border border-outline-variant w-96">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 font-label-mono text-label-mono text-on-surface placeholder:text-on-surface-variant/40 w-full" placeholder="SEARCH_ASSETS_OR_RECORDS..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs px-sm py-xs border border-primary-container/30 bg-primary-container/5">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-mono text-label-mono text-primary-container uppercase">Processing</span>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-container transition-opacity">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-container transition-opacity">settings</button>
+<div class="w-8 h-8 border border-outline-variant bg-surface-container-highest">
+<img alt="Editor Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcinAA0p3LhARRBhQ0nlS5_9qbWm04rvuikwdNLlnUgZLyVG1MkWnjX0kz4jF4ifvZXSDFSGY1tY6Jm42WThU_QnNGX9J9HZ8hEUvFHcPm6cuzBXsNrzXNTE47W5mlAEbM9thahvCjOxrWho2TxfcSxVzaDH0sX2kTb0xi80nspGz_eqriFPlcxcbdgnl7_IjUDiyCJxSLgF3d5aCuHvgSxLHemsjdznTK90Hd_r7h27-1EAS_87CV4wbaAMNEWN7S2qI8kvhX2rum"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-16 p-panel-margin min-h-[calc(100vh-4rem)] grid grid-cols-12 gap-gutter bg-outline-variant">
+<!-- Left Column: Activity & Versioning (8 cols) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-gutter">
+<!-- Bento Row 1: Render Version History -->
+<section class="bg-surface p-md relative overflow-hidden group">
+<div class="scanning-ui absolute inset-0 opacity-20"></div>
+<div class="flex justify-between items-center mb-md border-b border-outline-variant pb-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container">history</span>
+<h2 class="font-label-mono text-label-mono uppercase text-on-surface">Render_Version_History</h2>
+</div>
+<span class="font-data-num text-data-num text-on-surface-variant">48_ITEMS_TOTAL</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<!-- Version Card 1 -->
+<div class="bg-surface-container border border-outline-variant hover:border-primary-container transition-colors p-sm flex gap-md">
+<div class="w-24 h-24 bg-surface-container-lowest border border-outline-variant flex-shrink-0 relative overflow-hidden">
+<img class="w-full h-full object-cover opacity-80" data-alt="A cinematic film still of a dramatic landscape with high-contrast lighting, captured in a technical dark-mode aesthetic. The color grade features deep indigo shadows and sharp cyan highlights, emphasizing the raw, professional film production quality. The image feels sharp and detailed, suitable for a high-end post-production software interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9Rz0cG9mRi4ssqrN5jFNBYJ-ASTu-zcjC0Otl5x06-34wjtL1XdjOhBjcpZAiauZ3IPuDiu1GKCjnRU_t7XHYhNBsyhp593524dM_saCC7IxSe1kfLn4FtGn-jzwGceNI50K8qiNCgF5qa_kVQ9BGUBkWVF6EzRVZERjnn9Acbq420feiEs8_Pj08-Z1ElCwa5Jj4Na1usUBI3ewQOXdpRe9c_cjZtTveRDxfBVv50XUJCXa6rL4vbrVZKmNGoKuZqnna1FrryUbP"/>
+<div class="absolute bottom-1 left-1 bg-background/80 px-1 font-label-mono text-[9px] text-primary-container">4K_LOG</div>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="font-label-mono text-label-mono text-primary-container font-bold">V_09_COLOR_FINISH</span>
+<span class="px-1 border border-primary-container/40 text-[9px] text-primary-container font-label-mono">APPROVED</span>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-1 leading-tight">Master grade for episode 04. Corrected LUT clipping in highlights.</p>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="font-data-num text-[10px] text-on-surface-variant">TS: 01:24:12:00</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant cursor-pointer hover:text-primary-container">download</span>
+</div>
+</div>
+</div>
+<!-- Version Card 2 -->
+<div class="bg-surface-container border border-outline-variant hover:border-primary-container transition-colors p-sm flex gap-md">
+<div class="w-24 h-24 bg-surface-container-lowest border border-outline-variant flex-shrink-0 relative overflow-hidden">
+<img class="w-full h-full object-cover opacity-80" data-alt="A close-up of a high-tech film camera lens on a movie set at night. Neon blue and magenta lights reflect off the glass surfaces of the lens. The background is a soft bokeh of studio lights, creating a sophisticated and technical atmosphere. Dark space black tones dominate the frame with a crisp, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcTA0fTuLSdCy5pmxlZyEaqjwR-u6_Tvu0Oieqs9u5KIuf_WPZI2y31_P-gz2b6ZnbBh3xMOeAYm9rLjVYTNMujQlwC5mDzPnLG36UZnje2oVlxSbWC6jWqwxiFCTDrYKq7SlzG6jfxXa_gV9Tx5XTIPPrLE2yFTNhJNnk2IWjrKPweqfgY19X_UYNwGeGONo7D9_uhKEpMhutzrbnz-iDxw0yZv_UesE9XM2kQy2yf2-ITQThUtAvD3OqLA_y5wTpt5xMutBLQDbT"/>
+<div class="absolute bottom-1 left-1 bg-background/80 px-1 font-label-mono text-[9px] text-on-error">RAW_DPX</div>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="font-label-mono text-label-mono text-on-surface-variant font-bold">V_08_VFX_PLATE</span>
+<span class="px-1 border border-outline-variant text-[9px] text-on-surface-variant font-label-mono">REVIEW</span>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-1 leading-tight">Matchmove data included. Waiting for supervisor approval.</p>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="font-data-num text-[10px] text-on-surface-variant">TS: 01:24:08:12</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant cursor-pointer hover:text-primary-container">play_arrow</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Row 2: Asset Approval Grid -->
+<section class="bg-surface p-md flex-1">
+<div class="flex justify-between items-center mb-md border-b border-outline-variant pb-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container">verified</span>
+<h2 class="font-label-mono text-label-mono uppercase text-on-surface">Asset_Approval_Matrix</h2>
+</div>
+<div class="flex gap-md">
+<span class="font-label-mono text-[10px] text-on-surface uppercase flex items-center gap-xs"><span class="w-2 h-2 bg-primary-container"></span> Ready</span>
+<span class="font-label-mono text-[10px] text-on-surface uppercase flex items-center gap-xs"><span class="w-2 h-2 bg-error"></span> Rejected</span>
+</div>
+</div>
+<div class="space-y-gutter bg-outline-variant">
+<!-- Table Header -->
+<div class="grid grid-cols-12 bg-surface-container-low p-sm font-label-mono text-[9px] uppercase text-on-surface-variant">
+<div class="col-span-5">Asset_Name</div>
+<div class="col-span-2 text-center">Status</div>
+<div class="col-span-2 text-center">Owner</div>
+<div class="col-span-3 text-right">Last_Activity</div>
+</div>
+<!-- Row 1 -->
+<div class="grid grid-cols-12 bg-surface p-sm items-center hover:bg-surface-container-high group transition-colors">
+<div class="col-span-5 flex items-center gap-sm">
+<span class="material-symbols-outlined text-sm text-on-surface-variant group-hover:text-primary-container">movie</span>
+<span class="font-label-mono text-label-mono">SC_042_EXT_CHASE.mov</span>
+</div>
+<div class="col-span-2 flex justify-center">
+<div class="w-3 h-3 bg-primary-container shadow-[0_0_8px_rgba(0,242,255,0.4)]"></div>
+</div>
+<div class="col-span-2 text-center font-label-mono text-on-surface-variant">J. VANCE</div>
+<div class="col-span-3 text-right font-data-num text-data-num text-on-surface-variant">2M_AGO</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 bg-surface p-sm items-center hover:bg-surface-container-high group transition-colors">
+<div class="col-span-5 flex items-center gap-sm">
+<span class="material-symbols-outlined text-sm text-on-surface-variant group-hover:text-primary-container">audio_file</span>
+<span class="font-label-mono text-label-mono">FX_IMPACT_LAYER_01.wav</span>
+</div>
+<div class="col-span-2 flex justify-center">
+<div class="w-3 h-3 bg-surface-container-highest border border-outline"></div>
+</div>
+<div class="col-span-2 text-center font-label-mono text-on-surface-variant">M. CHEN</div>
+<div class="col-span-3 text-right font-data-num text-data-num text-on-surface-variant">15M_AGO</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 bg-surface p-sm items-center hover:bg-surface-container-high group transition-colors">
+<div class="col-span-5 flex items-center gap-sm">
+<span class="material-symbols-outlined text-sm text-on-surface-variant group-hover:text-primary-container">image</span>
+<span class="font-label-mono text-label-mono">MATTE_PAINTING_FINAL.exr</span>
+</div>
+<div class="col-span-2 flex justify-center">
+<div class="w-3 h-3 bg-error shadow-[0_0_8px_rgba(255,180,171,0.4)]"></div>
+</div>
+<div class="col-span-2 text-center font-label-mono text-on-surface-variant">S. ROSS</div>
+<div class="col-span-3 text-right font-data-num text-data-num text-on-surface-variant">1H_AGO</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Team Chat & Live Feed (4 cols) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter h-[calc(100vh-6rem)]">
+<!-- Persistent Team Chat -->
+<section class="bg-surface border-l border-outline-variant flex-1 flex flex-col overflow-hidden">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container">forum</span>
+<h2 class="font-label-mono text-label-mono uppercase text-on-surface">Team_Comm_Thread</h2>
+</div>
+<div class="flex -space-x-2">
+<img alt="Member 1" class="w-6 h-6 border border-background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUiubskdQxVzXtnje_XU19s05Qhr4kbo7NJvwGQ4S2n4XQq9uuutyq_kXXkLTQ9RgGKfPeROzNmn7vG6K5M1vhQ410IoQxnJZuGWz1Oe1faiEah2RuiC5D5lQJQ-FiEcleBkad_P8eFqYrsNNRopxhjOFVzc7M18OivaCDXmeAw6RqD_esBGaxk-bxtIzR9e5mzUrqSlDpf71lOXazb1agIEAsP-H8Vvg7W8rum_YKUnzFNooSY4TgWFkkUivSM9vyDRDYXkY5fxWu"/>
+<img alt="Member 2" class="w-6 h-6 border border-background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNNBLa3NDIFQDmMuziEjKGaTFdKeHEDnZswss-P2YY8GZI_LzZBL11ZJFz7JeRVBiXT50WxHIMRn8Il3j9zvajrhK0SriJ7zUHJ3VnJ8r-VKUcGav7jbmb_i9OrewpyYWsDhV13-H4jQPGxmuYv41_FSAgqflICV8-lvTd56WlJpUnAJVxD4rD79gTlh4EywEzuBurKpbDhMcig6uJXymrEPRhAkZZ_9K0n0sIz-MZYKd3tXESTzFSVIxF-T3UwTaOuE0pAgKXEFfA"/>
+<div class="w-6 h-6 border border-background bg-surface-container-highest text-[8px] flex items-center justify-center font-bold">+4</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-md space-y-lg no-scrollbar">
+<!-- Message -->
+<div class="space-y-sm">
+<div class="flex justify-between font-label-mono text-[9px]">
+<span class="text-primary-container">SYS_ADMIN</span>
+<span class="text-on-surface-variant">09:42:01</span>
+</div>
+<div class="p-sm bg-surface-container-low border-l-2 border-primary-container text-body-base text-[13px] leading-relaxed">
+                            New high-res render uploaded for review: <span class="text-primary-container underline cursor-pointer">V_09_COLOR_FINISH</span>. @Colorists please verify gamut limits.
+                        </div>
+</div>
+<!-- Message -->
+<div class="space-y-sm">
+<div class="flex justify-between font-label-mono text-[9px]">
+<span class="text-on-surface">J. VANCE</span>
+<span class="text-on-surface-variant">09:44:15</span>
+</div>
+<div class="p-sm bg-surface-container border-l-2 border-outline-variant text-body-base text-[13px] leading-relaxed">
+                            Gamut checks out. No clipping on the P3-D65 master. Pushing to approval now.
+                        </div>
+</div>
+<!-- Message (Self) -->
+<div class="space-y-sm ml-lg">
+<div class="flex justify-between font-label-mono text-[9px]">
+<span class="text-on-surface-variant">ME</span>
+<span class="text-on-surface-variant">09:45:00</span>
+</div>
+<div class="p-sm bg-primary-container/5 border border-primary-container/20 text-body-base text-[13px] leading-relaxed">
+                            Copy that. I'll start the DCP package generation once the matte painting fix is in.
+                        </div>
+</div>
+<!-- System Alert -->
+<div class="flex items-center gap-md py-sm opacity-50">
+<div class="flex-1 h-gutter bg-outline-variant"></div>
+<span class="font-label-mono text-[9px] uppercase tracking-widest text-on-surface-variant">Asset_Rejected: Matte_Painting_Final</span>
+<div class="flex-1 h-gutter bg-outline-variant"></div>
+</div>
+</div>
+<!-- Input Field -->
+<div class="p-md border-t border-outline-variant bg-surface-container-lowest">
+<div class="relative">
+<textarea class="w-full bg-surface border border-outline-variant focus:border-primary-container focus:ring-0 p-sm font-label-mono text-label-mono text-on-surface h-16 resize-none" placeholder="TYPE_MESSAGE..."></textarea>
+<button class="absolute bottom-2 right-2 text-primary-container hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Real-time Activity Feed (Compact) -->
+<section class="bg-surface p-md border-l border-outline-variant h-48">
+<div class="flex items-center gap-sm mb-sm">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">sensors</span>
+<h3 class="font-label-mono text-[10px] uppercase text-on-surface-variant">Live_Activity_Monitor</h3>
+</div>
+<div class="space-y-2 overflow-hidden">
+<div class="flex items-center justify-between text-[10px] font-label-mono animate-pulse">
+<span class="text-on-surface-variant">S. ROSS UPDATED WORKFLOW</span>
+<span class="text-primary-container">NOW</span>
+</div>
+<div class="flex items-center justify-between text-[10px] font-label-mono">
+<span class="text-on-surface-variant">SERVER NODE 04: COOLING_ALERT</span>
+<span class="text-error">01M</span>
+</div>
+<div class="flex items-center justify-between text-[10px] font-label-mono">
+<span class="text-on-surface-variant">M. CHEN COMMITTED FX_ASSET_V2</span>
+<span class="text-on-surface-variant">04M</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Scanning Line Effect -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden opacity-5 z-[60]">
+<div class="w-full h-1 bg-primary-container/20 absolute top-0 left-0 animate-[scan_8s_linear_infinite]"></div>
+</div>
+<style>
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</body></html>
