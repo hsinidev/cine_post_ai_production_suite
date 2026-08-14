@@ -1,17 +1,21 @@
 <div align="center">
-# 🚀 Cine Post Ai Production Suite
-### *High-Performance Autonomous Intelligence & Modular HTML Engine*
 
-<p align="center">
-  [![Architect](https://img.shields.io/badge/Architect-Hsini%20Mohamed-0055ff?style=for-the-badge&logo=github&logoColor=white)](https://hsini.dev)
-  [![Portfolio](https://img.shields.io/badge/Portfolio-hsini.dev-00c853?style=for-the-badge&logo=google-chrome&logoColor=white)](https://hsini.dev)
-  [![Language](https://img.shields.io/badge/Language-HTML-f59e0b?style=for-the-badge)](https://github.com/hsinidev)
-  [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-</p>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=180&section=header&text=Cine%20Post%20Ai%20Production%20&fontSize=42&fontColor=fff&animation=fadeIn&fontAlignY=38" width="100%" style="max-width: 100%; border-radius: 12px; margin-bottom: 20px;" alt="Cine Post Ai Production Suite Header Banner" />
+
+  <h1>🚀 Cine Post Ai Production Suite</h1>
+  <p><em>High-Performance Autonomous Intelligence & Modular HTML Engine</em></p>
+
+  <p align="center">
+    <a href="https://hsini.dev"><img src="https://img.shields.io/badge/Architect-Hsini%20Mohamed-0055ff?style=for-the-badge&logo=github&logoColor=white" alt="Architect: Hsini Mohamed" /></a>
+    <a href="https://hsini.dev"><img src="https://img.shields.io/badge/Portfolio-hsini.dev-00c853?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio: hsini.dev" /></a>
+    <a href="https://github.com/hsinidev"><img src="https://img.shields.io/badge/Language-HTML-e34c26?style=for-the-badge" alt="Language: HTML" /></a>
+    <a href="https://github.com/hsinidev/cine_post_ai_production_suite"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT" /></a>
+  </p>
 
 </div>
 
 ---
+
 ## 🌟 Executive Overview
 
 **Cine Post Ai Production Suite** is an enterprise-grade artificial intelligence solution engineered for low-latency reasoning, deterministic workflow automation, and high-accuracy data orchestration. Built with modern **HTML** and **HTML**, it delivers modular architecture and seamless developer ergonomics.
@@ -24,21 +28,13 @@
 - **Developer-First APIs**: Type-safe interfaces with comprehensive observability.
 
 ---
+
 ## 🏗️ Architecture & Technology Stack
 
 - **Primary Language**: `HTML`
 - **Design Pattern**: Modular Clean Architecture / Domain-Driven Design
 - **License**: MIT Open Source Attribution
 
-## 📖 Deep-Dive Technical Documentation
-
-﻿# cine_post_ai_production_suite
-
-> Part of the 1000 Stitch UI Projects collection.
-
-Category: **High-End Photography & Video Gear**
-
----
 ## 🚀 Quick Start & Installation
 
 ### 1. Clone the Repository
